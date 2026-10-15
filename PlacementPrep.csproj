@@ -1,4 +1,4 @@
-﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -104,6 +104,8 @@
     <Content Include=".gitignore" />
     <Content Include="Admin\AdminDashboard.aspx" />
     <Content Include="Faculty\Dashboard.aspx" />
+    <Content Include="Faculty\AIConfig.aspx" />
+    <Content Include="Faculty\AIPromptConfiguration.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Resources\css\admin.css" />
     <Content Include="Resources\css\common.css" />
@@ -113,6 +115,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AIConfigModel.cs" />
     <Compile Include="Admin.Master.cs">
       <DependentUpon>Admin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -142,6 +145,13 @@
     </Compile>
     <Compile Include="Faculty\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\AIConfig.aspx.cs">
+      <DependentUpon>AIConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\AIConfig.aspx.designer.cs">
+      <DependentUpon>AIConfig.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

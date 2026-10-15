@@ -1,4 +1,4 @@
-﻿
+
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Faculty.master.cs" Inherits="PlacementPrep.FacultyMaster" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +82,7 @@
 
             <nav class="faculty-side-nav">
 
-                <a class="faculty-side-link active" href="<%= ResolveUrl("~/Faculty/Dashboard.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("Dashboard.aspx") %>" href="<%= ResolveUrl("~/Faculty/Dashboard.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <rect x="4" y="4" width="6" height="6" rx="1"/>
                         <rect x="14" y="4" width="6" height="6" rx="1"/>
@@ -92,7 +92,7 @@
                     <span>Overview</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/Students.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("Students.aspx") %>" href="<%= ResolveUrl("~/Faculty/Students.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <circle cx="9" cy="8" r="3"/>
                         <path d="M3 19a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 5"/>
@@ -100,7 +100,7 @@
                     <span>Student Management</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/AIConfig.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("AIConfig.aspx", "AIPromptConfiguration.aspx") %>" href="<%= ResolveUrl("~/Faculty/AIConfig.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M12 3a7 7 0 0 0-4 12.7V19h8v-3.3A7 7 0 0 0 12 3z"/>
                         <path d="M9 22h6m-3-15v5m-2-2h4"/>
@@ -108,7 +108,7 @@
                     <span>AI Config</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/Companies.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("Companies.aspx") %>" href="<%= ResolveUrl("~/Faculty/Companies.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <rect x="4" y="4" width="16" height="16" rx="1"/>
                         <path d="M8 8h2m4 0h2M8 12h2m4 0h2M8 16h2m4 0h2M11 20v-4h2v4"/>
@@ -116,7 +116,7 @@
                     <span>Company Directory</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/BatchReports.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("BatchReports.aspx") %>" href="<%= ResolveUrl("~/Faculty/BatchReports.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M4 20h16M6 17V11m6 6V4m6 13V8"/>
                         <path d="M4 11h4m2-7h4m2 4h4"/>
@@ -124,7 +124,7 @@
                     <span>Batch Reports</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/SystemLogs.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("SystemLogs.aspx") %>" href="<%= ResolveUrl("~/Faculty/SystemLogs.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <rect x="3" y="4" width="18" height="15" rx="2"/>
                         <path d="m8 9-3 3 3 2m4 0 3-5m-9 12h10"/>
