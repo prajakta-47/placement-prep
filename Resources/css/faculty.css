@@ -1,0 +1,1084 @@
+﻿
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+/* =========================================
+   FACULTY PORTAL — FIGMA-MATCHED DESIGN
+   ========================================= */
+
+:root {
+    --fac-teal: #00685e;
+    --fac-dark-teal: #005b52;
+    --fac-mint: #c9f7ef;
+    --fac-bg: #f7f8ff;
+    --fac-card: #ffffff;
+    --fac-text: #1c2b42;
+    --fac-muted: #69747c;
+    --fac-border: #edf0f6;
+    --fac-sidebar-width: 198px;
+}
+
+.faculty-body,
+.faculty-body * {
+    box-sizing: border-box;
+}
+
+.faculty-body {
+    margin: 0;
+    background: var(--fac-bg);
+    color: var(--fac-text);
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+    font-size: 12px;
+}
+
+    .faculty-body a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .faculty-body button,
+    .faculty-body input {
+        font-family: inherit;
+    }
+
+/* =========================================
+   TOP HEADER
+   ========================================= */
+
+.faculty-header {
+    height: 49px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-bottom: 1px solid var(--fac-border);
+    position: relative;
+    z-index: 10;
+}
+
+.faculty-brand {
+    height: 49px;
+    width: var(--fac-sidebar-width);
+    min-width: var(--fac-sidebar-width);
+    flex: 0 0 var(--fac-sidebar-width);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    border-right: 1px solid #f0f1f6;
+}
+
+.faculty-brand-logo {
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    border-radius: 8px;
+    background: var(--fac-teal);
+}
+
+    .faculty-brand-logo svg {
+        width: 23px;
+        height: 23px;
+        fill: none;
+        stroke: #fff;
+        stroke-width: 1.6;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+    }
+
+.faculty-brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    white-space: nowrap;
+}
+
+    .faculty-brand-text strong {
+        font-size: 11px;
+        line-height: 13px;
+        font-weight: 800;
+    }
+
+    .faculty-brand-text small {
+        color: #707b82;
+        font-size: 8px;
+        line-height: 10px;
+    }
+
+/* Search field */
+
+.faculty-search {
+    height: 29px;
+    flex: 0 1 325px;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0 7px 0 24px;
+    padding: 0 10px;
+    border: 1px solid #e0e5f1;
+    border-radius: 18px;
+    background: #f0f3fc;
+    color: #73808c;
+}
+
+    .faculty-search svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+    }
+
+    .faculty-search input {
+        width: 100%;
+        min-width: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: var(--fac-text);
+        font-size: 9px;
+    }
+
+        .faculty-search input::placeholder {
+            color: #7c8792;
+        }
+
+/* Top navigation */
+
+.faculty-top-nav {
+    height: 49px;
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+}
+
+.faculty-top-link {
+    height: 49px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    border-bottom: 2px solid transparent;
+    color: #4b5661;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+    .faculty-top-link:hover,
+    .faculty-top-link.active {
+        color: var(--fac-teal);
+    }
+
+    .faculty-top-link.active {
+        border-bottom-color: var(--fac-teal);
+    }
+
+/* Header icons */
+
+.faculty-header-actions {
+    height: 49px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 0 12px 0 5px;
+}
+
+.faculty-icon-button {
+    width: 22px;
+    height: 28px;
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #3e4c57;
+    cursor: pointer;
+}
+
+    .faculty-icon-button svg {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .faculty-icon-button i {
+        position: absolute;
+        right: 1px;
+        top: 3px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #e33e48;
+    }
+
+.faculty-profile-button {
+    width: 25px;
+    height: 25px;
+    flex: 0 0 25px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #004f48;
+}
+
+    .faculty-profile-button svg {
+        width: 17px;
+        height: 17px;
+        fill: none;
+        stroke: white;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+/* =========================================
+   SIDEBAR — MAIN FIX
+   ========================================= */
+
+.faculty-shell {
+    display: flex;
+    align-items: stretch;
+    min-height: calc(100vh - 49px);
+}
+
+/* Fixed-width white sidebar, like the Figma */
+
+.faculty-sidebar {
+    width: var(--fac-sidebar-width);
+    min-width: var(--fac-sidebar-width);
+    flex: 0 0 var(--fac-sidebar-width);
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+    background: #fff;
+    border-right: 1px solid var(--fac-border);
+}
+
+/* New Placement Drive button */
+
+.faculty-new-drive {
+    height: 27px;
+    min-height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 12px 12px 11px;
+    padding: 0 7px;
+    border-radius: 18px;
+    background: var(--fac-teal);
+    color: #fff !important;
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+    .faculty-new-drive span {
+        font-size: 14px;
+        line-height: 1;
+    }
+
+/* Navigation begins immediately below the button */
+
+.faculty-side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0 6px;
+    margin: 0;
+}
+
+/* Consistent sidebar row dimensions */
+
+.faculty-side-link {
+    height: 28px;
+    min-height: 28px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    margin: 0;
+    border-radius: 5px;
+    color: #4d5959;
+    font-size: 10px;
+    line-height: 1.2;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+    .faculty-side-link svg {
+        width: 14px;
+        height: 14px;
+        flex: 0 0 14px;
+        display: block;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .faculty-side-link span {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .faculty-side-link:hover {
+        background: #f1f8f7;
+        color: var(--fac-teal);
+    }
+
+    .faculty-side-link.active {
+        background: var(--fac-mint);
+        color: #145c55;
+    }
+
+/* Help Center and Logout stay at the bottom */
+
+.faculty-sidebar-bottom {
+    margin-top: auto;
+    padding: 7px 6px;
+    border-top: 1px solid #edf0f4;
+    background: #fff;
+}
+
+.faculty-bottom-link {
+    height: 27px;
+    min-height: 27px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    color: #52605e;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+    .faculty-bottom-link svg {
+        width: 14px;
+        height: 14px;
+        flex: 0 0 14px;
+        display: block;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .faculty-bottom-link.logout {
+        color: #d93434;
+    }
+
+/* =========================================
+   MAIN DASHBOARD AREA
+   ========================================= */
+
+.faculty-main {
+    flex: 1 1 auto;
+    min-width: 0;
+    background: var(--fac-bg);
+}
+
+.faculty-dashboard {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 3px 24px 24px;
+}
+
+.faculty-dashboard-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 17px;
+}
+
+    .faculty-dashboard-heading h1 {
+        margin: 0 0 4px;
+        color: #172940;
+        font-size: 24px;
+        line-height: 1.25;
+        font-weight: 800;
+        letter-spacing: -.8px;
+    }
+
+    .faculty-dashboard-heading p {
+        margin: 0;
+        color: #586571;
+        font-size: 11px;
+    }
+
+.faculty-export {
+    margin-top: 7px;
+    padding: 7px 12px;
+    border: 1px solid #eff0f5;
+    border-radius: 7px;
+    background: white;
+    color: #374456;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+/* Main dashboard columns */
+
+.faculty-dashboard-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.75fr) minmax(230px, .9fr);
+    gap: 18px;
+}
+
+.faculty-left-column,
+.faculty-right-column {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+}
+
+/* Metric cards */
+
+.faculty-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 17px;
+}
+
+.faculty-metric-card {
+    min-height: 157px;
+    padding: 17px 18px;
+    background: white;
+    border: 1px solid #eff0f6;
+    border-radius: 10px;
+}
+
+.faculty-metric-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 13px;
+}
+
+.faculty-metric-icon {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 7px;
+    background: #d6faf2;
+    color: #007f72;
+}
+
+    .faculty-metric-icon svg {
+        width: 17px;
+        height: 17px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+.faculty-metric-card:nth-child(2) .faculty-metric-icon {
+    background: #e4edff;
+    color: #415978;
+}
+
+.faculty-tag {
+    padding: 3px 8px;
+    border-radius: 15px;
+    background: #e7efff;
+    color: #526176;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .3px;
+}
+
+.faculty-metric-value {
+    font-size: 28px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -.8px;
+}
+
+.faculty-metric-caption {
+    margin-top: 6px;
+    color: #4f5b5e;
+    font-size: 11px;
+}
+
+.faculty-metric-change {
+    margin-top: 12px;
+    color: #07877b;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+    .faculty-metric-change.neutral {
+        color: #58625f;
+        font-weight: 500;
+    }
+
+/* Placement readiness card */
+
+.faculty-readiness-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 127px;
+    padding: 19px;
+    border-radius: 10px;
+    background: #005c53;
+    color: white;
+}
+
+    .faculty-readiness-card:after {
+        content: "★";
+        position: absolute;
+        top: -12px;
+        right: -6px;
+        color: rgba(255,255,255,.06);
+        font-size: 87px;
+        pointer-events: none;
+    }
+
+.faculty-readiness-label {
+    position: relative;
+    z-index: 1;
+    color: #a5e3d9;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: .6px;
+}
+
+.faculty-readiness-number {
+    position: relative;
+    z-index: 1;
+    margin-top: 12px;
+    font-size: 27px;
+    line-height: 1;
+    font-weight: 800;
+}
+
+    .faculty-readiness-number span {
+        color: #9bd8ce;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+.faculty-readiness-caption {
+    position: relative;
+    z-index: 1;
+    margin-top: 7px;
+    color: #a5d9d0;
+    font-size: 10px;
+}
+
+.faculty-readiness-track {
+    position: relative;
+    z-index: 1;
+    height: 6px;
+    margin-top: 13px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.17);
+    overflow: hidden;
+}
+
+.faculty-readiness-fill {
+    width: 71%;
+    height: 100%;
+    border-radius: inherit;
+    background: #70e5d0;
+}
+
+/* Shared white panels */
+
+.faculty-panel {
+    min-width: 0;
+    padding: 18px;
+    border: 1px solid #eff0f6;
+    border-radius: 10px;
+    background: white;
+}
+
+.faculty-panel-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 13px;
+}
+
+    .faculty-panel-heading h2 {
+        margin: 0 0 4px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: -.2px;
+    }
+
+    .faculty-panel-heading p {
+        margin: 0;
+        color: #68736f;
+        font-size: 9px;
+    }
+
+.faculty-period {
+    padding: 7px 9px;
+    border: 0;
+    border-radius: 6px;
+    background: #eef2ff;
+    color: #3c4c63;
+    font-size: 9px;
+}
+
+/* Department performance chart */
+
+.faculty-chart-box {
+    padding: 14px 13px 8px;
+    border-radius: 9px;
+    background: #eff3ff;
+}
+
+.faculty-chart-legend {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+    color: #5d6a70;
+    font-size: 9px;
+}
+
+.faculty-legend-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.faculty-legend-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #007568;
+}
+
+    .faculty-legend-dot.benchmark {
+        background: #d3dbdf;
+    }
+
+.faculty-chart {
+    height: 173px;
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 13px;
+    align-items: end;
+    padding: 6px 7px 0;
+}
+
+.faculty-chart-column {
+    height: 100%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.faculty-bar {
+    width: 52%;
+    max-width: 42px;
+    min-height: 12px;
+    border-radius: 5px 5px 0 0;
+    background: #a9cacc;
+}
+
+.faculty-chart-column:nth-child(2) .faculty-bar {
+    background: #78b1af;
+}
+
+.faculty-chart-column:nth-child(3) .faculty-bar {
+    background: #92bfc0;
+}
+
+.faculty-chart-column:nth-child(4) .faculty-bar {
+    background: #007466;
+}
+
+.faculty-chart-column:nth-child(5) .faculty-bar {
+    background: #5da4a0;
+}
+
+.faculty-chart-column:nth-child(6) .faculty-bar {
+    background: #004f48;
+}
+
+.faculty-chart-label {
+    height: 31px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #46555d;
+    font-size: 9px;
+    white-space: nowrap;
+}
+
+.faculty-chart-column:nth-child(4) .faculty-chart-label,
+.faculty-chart-column:nth-child(6) .faculty-chart-label {
+    font-weight: 700;
+}
+
+/* Quick action tiles */
+
+.faculty-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.faculty-quick-action {
+    min-height: 88px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #eff3ff;
+    color: #283952;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 600;
+    transition: background .15s ease;
+}
+
+    .faculty-quick-action:hover {
+        background: #e1e9ff;
+    }
+
+.faculty-quick-icon {
+    width: 31px;
+    height: 31px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #e2ebff;
+    color: #30445f;
+}
+
+    .faculty-quick-icon svg {
+        width: 17px;
+        height: 17px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 1.7;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+/* Recent batch activity */
+
+.faculty-sync-label {
+    color: #68736f;
+    font-size: 8px;
+    white-space: nowrap;
+}
+
+.faculty-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.faculty-timeline-item {
+    position: relative;
+    padding-left: 18px;
+}
+
+    .faculty-timeline-item:before {
+        content: "";
+        position: absolute;
+        top: 13px;
+        bottom: -17px;
+        left: 7px;
+        width: 2px;
+        background: #dce6ff;
+    }
+
+    .faculty-timeline-item:last-child:before {
+        bottom: 50%;
+    }
+
+.faculty-timeline-marker {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    z-index: 1;
+    width: 15px;
+    height: 15px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #007b6c;
+    color: white;
+    font-size: 9px;
+}
+
+.faculty-timeline-item:nth-child(2) .faculty-timeline-marker {
+    background: #e3ebfa;
+    color: #48627c;
+}
+
+.faculty-timeline-item:nth-child(3) .faculty-timeline-marker {
+    background: #b7f3e8;
+    color: #007568;
+}
+
+.faculty-activity-content {
+    padding: 12px;
+    border-radius: 9px;
+    background: #eff3ff;
+}
+
+.faculty-activity-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 5px;
+}
+
+    .faculty-activity-title strong {
+        font-size: 10px;
+    }
+
+    .faculty-activity-title small {
+        color: #68736f;
+        font-size: 8px;
+        white-space: nowrap;
+    }
+
+.faculty-activity-content p {
+    margin: 0;
+    color: #58646a;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+    .faculty-activity-content p span {
+        color: #007b6c;
+    }
+
+/* Upcoming schedule */
+
+.faculty-view-all {
+    color: #00877a !important;
+    font-size: 9px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.faculty-schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.faculty-schedule-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.faculty-date-box {
+    width: 39px;
+    min-width: 39px;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    background: #e8efff;
+    color: #263d5a;
+}
+
+    .faculty-date-box small {
+        font-size: 7px;
+        font-weight: 800;
+    }
+
+    .faculty-date-box strong {
+        font-size: 16px;
+        line-height: 1.2;
+    }
+
+.faculty-schedule-details {
+    min-width: 0;
+}
+
+    .faculty-schedule-details strong {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 10px;
+        line-height: 1.35;
+    }
+
+    .faculty-schedule-details small {
+        display: block;
+        color: #66716f;
+        font-size: 8px;
+        line-height: 1.4;
+    }
+
+/* =========================================
+   RESPONSIVE LAYOUT
+   ========================================= */
+
+@media (max-width: 1100px) {
+    .faculty-search {
+        margin-left: 10px;
+        max-width: 220px;
+    }
+
+    .faculty-top-link {
+        padding: 0 7px;
+        font-size: 9px;
+    }
+
+    .faculty-dashboard {
+        max-width: none;
+        padding: 12px 18px 24px;
+    }
+
+    .faculty-dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .faculty-right-column {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        align-items: start;
+    }
+}
+
+@media (max-width: 720px) {
+    .faculty-header {
+        height: auto;
+        min-height: 49px;
+        flex-wrap: wrap;
+    }
+
+    .faculty-brand {
+        width: auto;
+        min-width: 0;
+        flex: 1;
+    }
+
+    .faculty-search {
+        order: 4;
+        flex-basis: calc(100% - 20px);
+        max-width: none;
+        margin: 0 10px 8px;
+    }
+
+    .faculty-top-nav {
+        order: 5;
+        flex-basis: 100%;
+        overflow-x: auto;
+        height: 36px;
+    }
+
+    .faculty-top-link {
+        height: 36px;
+        padding: 0 12px;
+    }
+
+    .faculty-shell {
+        min-height: calc(100vh - 94px);
+    }
+
+    .faculty-sidebar {
+        width: 48px;
+        min-width: 48px;
+        flex-basis: 48px;
+    }
+
+    .faculty-new-drive {
+        margin: 8px 4px;
+        padding: 0;
+        font-size: 0;
+    }
+
+        .faculty-new-drive span {
+            font-size: 17px;
+        }
+
+    .faculty-side-nav {
+        padding: 0 4px;
+    }
+
+    .faculty-side-link {
+        justify-content: center;
+        padding: 0 3px;
+    }
+
+        .faculty-side-link span,
+        .faculty-bottom-link span {
+            display: none;
+        }
+
+    .faculty-sidebar-bottom {
+        padding: 6px 3px;
+    }
+
+    .faculty-bottom-link {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .faculty-dashboard {
+        padding: 14px 10px 20px;
+    }
+
+    .faculty-dashboard-heading h1 {
+        font-size: 20px;
+    }
+
+    .faculty-dashboard-grid,
+    .faculty-metric-grid,
+    .faculty-right-column {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .faculty-chart {
+        gap: 5px;
+    }
+
+    .faculty-chart-label {
+        font-size: 7px;
+        white-space: normal;
+    }
+
+    .faculty-panel {
+        padding: 12px;
+    }
+}

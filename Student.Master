@@ -1,0 +1,99 @@
+﻿
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Student.master.cs" Inherits="PlacementPrep.StudentMaster" %>
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Placement Prep | Student</title>
+    <link href="<%= ResolveUrl("~/Resources/css/common.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Resources/css/student.css") %>" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body class="student-body">
+<form id="form1" runat="server">
+
+    <header class="student-header">
+        <a class="student-brand" href="<%= ResolveUrl("~/Student/Dashboard.aspx") %>">
+            <span class="student-brand-logo">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2z"/></svg>
+            </span>
+            <span class="student-brand-text">
+                <strong>Placement Prep</strong>
+                <small>Academic Excellence</small>
+            </span>
+        </a>
+
+        <nav class="student-top-nav">
+            <a class="student-top-link active" href="<%= ResolveUrl("~/Student/Dashboard.aspx") %>">Dashboard</a>
+            <a class="student-top-link" href="<%= ResolveUrl("~/Student/Quantitative.aspx") %>">Practice</a>
+            <a class="student-top-link" href="<%= ResolveUrl("~/Student/MockTests.aspx") %>">Mock Tests</a>
+            <a class="student-top-link" href="<%= ResolveUrl("~/Student/Resources.aspx") %>">Resources</a>
+        </nav>
+
+        <div class="student-header-actions">
+            <label class="student-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
+                <input type="search" placeholder="Search tests, topics, formulas..." aria-label="Search" />
+            </label>
+            <button type="button" class="student-header-icon" aria-label="Notifications">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
+                <i></i>
+            </button>
+            <a class="student-header-icon" href="<%= ResolveUrl("~/Student/Settings.aspx") %>" aria-label="Settings">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="m19 13 2-1-2-1-.5-2 1-2-2-2-2 1-2-.5-1-2-2 2-.5 2-2 1-2-1-2 2 1 2-.5 2-2 1 2 1 .5 2-1 2 2 2 2-1 2 .5 1 2 2-2 .5-2 2-1 2 1 2-2-1-2z"/></svg>
+            </a>
+            <a class="student-profile-link" href="<%= ResolveUrl("~/Student/Profile.aspx") %>" aria-label="Student profile">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
+            </a>
+        </div>
+    </header>
+
+    <div class="student-shell">
+        <aside class="student-sidebar">
+            <nav class="student-side-nav">
+                <a class="student-side-link active" href="<%= ResolveUrl("~/Student/Dashboard.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
+                    <span>Course Overview</span>
+                </a>
+                <a class="student-side-link" href="<%= ResolveUrl("~/Student/Quantitative.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h2m4 0h2M8 15h2m4 0h2M8 18h2m4 0h2"/></svg>
+                    <span>Quantitative</span>
+                </a>
+                <a class="student-side-link" href="<%= ResolveUrl("~/Student/CodingProblems.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="15" rx="2"/><path d="m8 9-3 3 3 2m4 0 3-5m-9 12h10"/></svg>
+                    <span>Coding Problems</span>
+                </a>
+                <a class="student-side-link" href="<%= ResolveUrl("~/Student/ResumeAnalyzer.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"/><path d="M14 3v6h5M9 13h6m-6 4h6"/></svg>
+                    <span>Resume Analyzer</span>
+                </a>
+                <a class="student-side-link" href="<%= ResolveUrl("~/Student/InterviewPrep.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="13" rx="3"/><path d="M9 7V5a3 3 0 0 1 6 0v2m-3 5v3"/></svg>
+                    <span>Interview Prep</span>
+                </a>
+                <a class="student-side-link" href="<%= ResolveUrl("~/Student/FeedbackHub.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v12H9l-5 4z"/><path d="M8 9h8m-8 4h5"/></svg>
+                    <span>Feedback Hub</span>
+                </a>
+            </nav>
+
+            <div class="student-sidebar-bottom">
+                <a class="student-bottom-link" href="<%= ResolveUrl("~/Student/Help.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.5 1.5c-1.3 1.3-2 1.5-2 3m0 3h.01"/></svg>
+                    <span>Help Center</span>
+                </a>
+                <a class="student-bottom-link logout" href="<%= ResolveUrl("~/Login.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5v16h5m4-4 4-4-4-4m4 4H9"/></svg>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="student-main">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+        </main>
+    </div>
+</form>
+</body>
+</html>

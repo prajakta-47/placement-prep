@@ -1,0 +1,126 @@
+﻿
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="PlacementPrep.AdminMaster" %>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Placement Prep | Admin Portal</title>
+
+    <link href="<%= ResolveUrl("~/Resources/css/common.css") %>" rel="stylesheet" />
+    <link href="<%= ResolveUrl("~/Resources/css/admin.css") %>" rel="stylesheet" />
+
+    <asp:ContentPlaceHolder ID="head" runat="server" />
+</head>
+<body>
+<form id="form1" runat="server">
+
+    <!-- Global top header -->
+    <header class="global-header">
+        <a class="brand" href="<%= ResolveUrl("~/Admin/AdminDashboard.aspx") %>">
+            <span class="brand-logo">PP</span>
+            <span class="brand-text">
+                <strong>Placement Prep</strong>
+                <small>Admin Portal</small>
+            </span>
+        </a>
+
+        <nav class="top-navigation">
+            <a class="top-link selected" href="<%= ResolveUrl("~/Admin/AdminDashboard.aspx") %>">Dashboard</a>
+            <a class="top-link" href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">Question Bank</a>
+            <a class="top-link" href="<%= ResolveUrl("~/Admin/ManageTests.aspx") %>">Tests</a>
+            <a class="top-link" href="<%= ResolveUrl("~/Admin/ManageStudents.aspx") %>">Students</a>
+            <a class="top-link" href="<%= ResolveUrl("~/Admin/ManageCompanies.aspx") %>">Companies</a>
+        </nav>
+
+        <div class="header-actions">
+            <div class="global-search">
+                <span>⌕</span>
+                <input type="text" placeholder="Search platform..." aria-label="Search platform" />
+                <kbd>Ctrl+K</kbd>
+            </div>
+            <button type="button" class="header-icon" aria-label="Notifications">♧</button>
+            <button type="button" class="header-icon" aria-label="Settings">⚙</button>
+            <div class="header-user">
+                <span class="user-avatar">A</span>
+                <span class="user-label">
+                    <strong>Global Admin</strong>
+                    <small>Superuser</small>
+                </span>
+                <span class="dropdown-arrow">⌄</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-shell">
+
+        <!-- Left sidebar -->
+        <aside class="admin-sidebar">
+            <div class="sidebar-section-title">PLATFORM NAVIGATION</div>
+
+            <nav class="sidebar-nav">
+                <a class="side-link active" href="<%= ResolveUrl("~/Admin/AdminDashboard.aspx") %>">
+                    <span class="side-icon">▦</span> Overview
+                </a>
+
+                <a class="side-link" href="<%= ResolveUrl("~/Admin/ManageUsers.aspx") %>">
+                    <span class="side-icon">♙</span> User Management
+                </a>
+
+                <details class="side-group" open>
+                    <summary class="side-link">
+                        <span class="side-icon">▤</span> Question Bank
+                        <span class="side-chevron">⌄</span>
+                    </summary>
+                    <div class="side-submenu">
+                        <a href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">All Questions</a>
+                        <a href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">Aptitude Questions</a>
+                        <a href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">Technical Questions</a>
+                        <a href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">Coding Problems</a>
+                    </div>
+                </details>
+
+                <a class="side-link" href="<%= ResolveUrl("~/Admin/ManageTests.aspx") %>">
+                    <span class="side-icon">▣</span> Test Management
+                </a>
+
+                <a class="side-link" href="<%= ResolveUrl("~/Admin/ManageStudents.aspx") %>">
+                    <span class="side-icon">♧</span> Student Management
+                </a>
+
+                <a class="side-link" href="<%= ResolveUrl("~/Admin/ManageCompanies.aspx") %>">
+                    <span class="side-icon">▦</span> Company Management
+                </a>
+
+                <div class="sidebar-section-title second-section">INTELLIGENCE &amp; AUDIT</div>
+
+                <a class="side-link" href="<%= ResolveUrl("~/Admin/Reports.aspx") %>">
+                    <span class="side-icon">⌁</span> Reports &amp; Analytics
+                </a>
+
+                <a class="side-link" href="<%= ResolveUrl("~/Admin/SystemLogs.aspx") %>">
+                    <span class="side-icon">▣</span> System Logs
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <a class="side-link" href="<%= ResolveUrl("~/Admin/Settings.aspx") %>">
+                    <span class="side-icon">⚙</span> Settings
+                </a>
+                <a class="side-link logout-link" href="#">
+                    <span class="side-icon">⇥</span> Logout
+                </a>
+            </div>
+        </aside>
+
+        <!-- Individual page content -->
+        <div class="admin-main">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
+        </div>
+    </div>
+
+</form>
+</body>
+</html>

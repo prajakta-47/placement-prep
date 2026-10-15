@@ -1,0 +1,62 @@
+﻿
+# Visual Studio user-specific files
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# Visual Studio cache and generated files
+*.cache
+*.pdb
+*.ilk
+*.log
+*.tmp
+*.bak
+*.orig
+
+# Test results
+[Tt]est[Rr]esult*/
+*.trx
+
+# NuGet packages (restored when needed)
+packages/
+
+# Publish and deployment output
+publish/
+PublishProfiles/
+*.pubxml.user
+
+# Local databases and database logs
+*.mdf
+*.ldf
+*.ndf
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+secrets.json
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary editor files
+*.swp
+*.swo
+*~
+
+# Keep project dependencies and configuration
+# packages.config and Web.config should be committed.
