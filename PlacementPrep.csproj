@@ -106,6 +106,16 @@
     <Content Include="Faculty\Dashboard.aspx" />
     <Content Include="Faculty\AIConfig.aspx" />
     <Content Include="Faculty\AIPromptConfiguration.aspx" />
+    <Content Include="Faculty\Students.aspx" />
+    <Content Include="Faculty\Curriculum.aspx" />
+    <Content Include="Faculty\Analytics.aspx" />
+    <Content Include="Faculty\Companies.aspx" />
+    <Content Include="Faculty\BatchReports.aspx" />
+    <Content Include="Faculty\SystemLogs.aspx" />
+    <Content Include="Faculty\Help.aspx" />
+    <Content Include="Faculty\PlacementDrives.aspx" />
+    <Content Include="Faculty\Settings.aspx" />
+    <Content Include="Faculty\Profile.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Resources\css\admin.css" />
     <Content Include="Resources\css\common.css" />
@@ -116,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\AIConfigModel.cs" />
+    <Compile Include="Models\FacultyDataStore.cs" />
     <Compile Include="Admin.Master.cs">
       <DependentUpon>Admin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -152,6 +163,69 @@
     </Compile>
     <Compile Include="Faculty\AIConfig.aspx.designer.cs">
       <DependentUpon>AIConfig.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\Students.aspx.cs">
+      <DependentUpon>Students.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\Students.aspx.designer.cs">
+      <DependentUpon>Students.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\Curriculum.aspx.cs">
+      <DependentUpon>Curriculum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\Curriculum.aspx.designer.cs">
+      <DependentUpon>Curriculum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\Analytics.aspx.cs">
+      <DependentUpon>Analytics.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\Analytics.aspx.designer.cs">
+      <DependentUpon>Analytics.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\Companies.aspx.cs">
+      <DependentUpon>Companies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\Companies.aspx.designer.cs">
+      <DependentUpon>Companies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\BatchReports.aspx.cs">
+      <DependentUpon>BatchReports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\BatchReports.aspx.designer.cs">
+      <DependentUpon>BatchReports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\SystemLogs.aspx.cs">
+      <DependentUpon>SystemLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\SystemLogs.aspx.designer.cs">
+      <DependentUpon>SystemLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\PlacementDrives.aspx.cs">
+      <DependentUpon>PlacementDrives.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\PlacementDrives.aspx.designer.cs">
+      <DependentUpon>PlacementDrives.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
