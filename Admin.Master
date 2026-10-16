@@ -1,4 +1,4 @@
-﻿
+
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="PlacementPrep.AdminMaster" %>
 
 
@@ -109,7 +109,7 @@
                 <a class="side-link" href="<%= ResolveUrl("~/Admin/Settings.aspx") %>">
                     <span class="side-icon">⚙</span> Settings
                 </a>
-                <a class="side-link logout-link" href="#">
+                <a class="side-link logout-link" href="<%= ResolveUrl("~/Login.aspx?logout=true") %>">
                     <span class="side-icon">⇥</span> Logout
                 </a>
             </div>

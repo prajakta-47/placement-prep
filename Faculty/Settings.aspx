@@ -479,6 +479,17 @@
                 <div style="text-align:right; margin-top:20px;">
                     <asp:Button ID="btnSaveSecurity" runat="server" Text="Update Security Credentials" CssClass="btn-save" OnClick="btnSaveSecurity_Click" />
                 </div>
+
+                <div style="margin-top:28px; padding-top:20px; border-top:1px solid #f1f5f9; display:flex; justify-content:space-between; align-items:center;">
+                    <div>
+                        <div style="font-size:13px; font-weight:700; color:#b91c1c;">Active Session</div>
+                        <div style="font-size:11px; color:#64748b;">Sign out of this session and redirect to the login portal.</div>
+                    </div>
+                    <a href="<%= ResolveUrl("~/Login.aspx?logout=true") %>" class="btn-secondary" style="color:#b91c1c; border-color:#fecaca; background:#fef2f2; text-decoration:none; display:inline-flex; align-items:center; gap:6px; padding:8px 14px; border-radius:6px; font-size:12px; font-weight:600;">
+                        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M10 4H5v16h5m4-4 4-4-4-4m4 4H9"/></svg>
+                        Logout from Portal
+                    </a>
+                </div>
             </div>
 
             <!-- TAB 4: PORTAL DEFAULTS -->
