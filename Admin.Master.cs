@@ -160,6 +160,8 @@ namespace PlacementPrep
         {
             Response.ContentEncoding = System.Text.Encoding.UTF8;
             Response.Charset = "utf-8";
+
+            PlacementPrep.Helpers.AuthHelper.CheckAuthorization(Session, Response, "Admin");
         }
 
         protected void Page_Load(object sender, EventArgs e)

@@ -71,18 +71,20 @@ namespace PlacementPrep.Helpers
             }
 
             var hasUpper = false;
+            var hasLower = false;
             var hasDigit = false;
             var hasSpecial = false;
             foreach (var ch in password)
             {
                 if (char.IsUpper(ch)) hasUpper = true;
+                else if (char.IsLower(ch)) hasLower = true;
                 else if (char.IsDigit(ch)) hasDigit = true;
                 else if (!char.IsLetterOrDigit(ch)) hasSpecial = true;
             }
 
-            if (!hasUpper || !hasDigit || !hasSpecial)
+            if (!hasUpper || !hasLower || !hasDigit || !hasSpecial)
             {
-                errorMessage = "Password must include an uppercase letter, a number, and a special character.";
+                errorMessage = "Password must be at least 8 characters and include an uppercase letter, a lowercase letter, a number, and a special character.";
                 return false;
             }
 

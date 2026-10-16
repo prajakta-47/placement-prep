@@ -2,7 +2,15 @@
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
-        Response.Redirect("~/Faculty/Dashboard.aspx", true);
+        string role = Session["UserRole"] as string;
+        if (!string.IsNullOrEmpty(role))
+        {
+            Response.Redirect(PlacementPrep.Helpers.AuthHelper.GetDashboardUrl(role), true);
+        }
+        else
+        {
+            Response.Redirect("~/Login.aspx", true);
+        }
     }
 </script>
 <!DOCTYPE html>
@@ -11,6 +19,6 @@
     <title>Placement Prep - Redirecting</title>
 </head>
 <body>
-    <p>Redirecting to <a href="Faculty/Dashboard.aspx">Faculty Portal</a>...</p>
+    <p>Redirecting to <a href="Login.aspx">Login</a>...</p>
 </body>
 </html>

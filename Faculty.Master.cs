@@ -11,6 +11,11 @@ namespace PlacementPrep
 {
     public partial class FacultyMaster : System.Web.UI.MasterPage
     {
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            PlacementPrep.Helpers.AuthHelper.CheckAuthorization(Session, Response, "Faculty");
+        }
+
         public string IsActive(params string[] pageNames)
         {
             string currentPage = System.IO.Path.GetFileName(Request.Path);
