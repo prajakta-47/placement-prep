@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,6 +18,12 @@ namespace PlacementPrep
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);            
+        }
+
+        protected void Application_BeginRequest(object sender, EventArgs e)
+        {
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            Response.Charset = "utf-8";
         }
     }
 }

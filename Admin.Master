@@ -1,6 +1,4 @@
-﻿
-<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="PlacementPrep.AdminMaster" %>
-
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="PlacementPrep.AdminMaster" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,111 +12,156 @@
 
     <asp:ContentPlaceHolder ID="head" runat="server" />
 </head>
-<body>
+<body class="admin-body">
 <form id="form1" runat="server">
 
-    <!-- Global top header -->
-    <header class="global-header">
-        <a class="brand" href="<%= ResolveUrl("~/Admin/AdminDashboard.aspx") %>">
-            <span class="brand-logo">PP</span>
-            <span class="brand-text">
+    <header class="admin-header">
+        <a class="admin-brand" href="<%= ResolveUrl("~/Admin/AdminDashboard.aspx") %>">
+            <span class="admin-brand-logo">
+                <img src="<%= ResolveUrl("~/Resources/images/placement-prep-logo.png") %>" alt="Placement Prep Logo" />
+            </span>
+            <span class="admin-brand-text">
                 <strong>Placement Prep</strong>
                 <small>Admin Portal</small>
             </span>
         </a>
 
-        <nav class="top-navigation">
-            <a class="top-link selected" href="<%= ResolveUrl("~/Admin/AdminDashboard.aspx") %>">Dashboard</a>
-            <a class="top-link" href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">Question Bank</a>
-            <a class="top-link" href="<%= ResolveUrl("~/Admin/ManageTests.aspx") %>">Tests</a>
-            <a class="top-link" href="<%= ResolveUrl("~/Admin/ManageStudents.aspx") %>">Students</a>
-            <a class="top-link" href="<%= ResolveUrl("~/Admin/ManageCompanies.aspx") %>">Companies</a>
+        <nav class="admin-top-nav" aria-label="Primary">
+            <a class="<%= GetTopNavClass("dashboard") %>" href="<%= ResolveUrl("~/Admin/AdminDashboard.aspx") %>">Dashboard</a>
+            <a class="<%= GetTopNavClass("questions") %>" href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">Question Bank</a>
+            <a class="<%= GetTopNavClass("tests") %>" href="<%= ResolveUrl("~/Admin/ManageTests.aspx") %>">Tests</a>
+            <a class="<%= GetTopNavClass("students") %>" href="<%= ResolveUrl("~/Admin/ManageStudents.aspx") %>">Students</a>
+            <a class="<%= GetTopNavClass("companies") %>" href="<%= ResolveUrl("~/Admin/ManageCompanies.aspx") %>">Companies</a>
         </nav>
 
-        <div class="header-actions">
-            <div class="global-search">
-                <span>⌕</span>
-                <input type="text" placeholder="Search platform..." aria-label="Search platform" />
+        <div class="admin-header-actions">
+            <label class="admin-search">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"/>
+                    <path d="m16 16 4 4"/>
+                </svg>
+                <input type="search" placeholder="Search platform..." aria-label="Search platform" />
                 <kbd>Ctrl+K</kbd>
-            </div>
-            <button type="button" class="header-icon" aria-label="Notifications">♧</button>
-            <button type="button" class="header-icon" aria-label="Settings">⚙</button>
-            <div class="header-user">
-                <span class="user-avatar">A</span>
-                <span class="user-label">
+            </label>
+
+            <button type="button" class="admin-icon-button" aria-label="Notifications">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                    <path d="M10 21h4"/>
+                </svg>
+                <i></i>
+            </button>
+
+            <a class="admin-icon-button" href="<%= ResolveUrl("~/Admin/Settings.aspx") %>" aria-label="Settings">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+            </a>
+
+            <a class="admin-profile" href="<%= ResolveUrl("~/Admin/Settings.aspx") %>" aria-label="Admin profile">
+                <span class="admin-avatar">A</span>
+                <span class="admin-user-label">
                     <strong>Global Admin</strong>
                     <small>Superuser</small>
                 </span>
-                <span class="dropdown-arrow">⌄</span>
-            </div>
+            </a>
         </div>
     </header>
 
     <div class="admin-shell">
-
-        <!-- Left sidebar -->
         <aside class="admin-sidebar">
-            <div class="sidebar-section-title">PLATFORM NAVIGATION</div>
+            <div class="admin-sidebar-section">PLATFORM NAVIGATION</div>
 
-            <nav class="sidebar-nav">
-                <a class="side-link active" href="<%= ResolveUrl("~/Admin/AdminDashboard.aspx") %>">
-                    <span class="side-icon">▦</span> Overview
+            <nav class="admin-side-nav" aria-label="Admin">
+                <a class="<%= GetSideNavClass("overview") %>" href="<%= ResolveUrl("~/Admin/AdminDashboard.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="4" y="4" width="6" height="6" rx="1"/>
+                        <rect x="14" y="4" width="6" height="6" rx="1"/>
+                        <rect x="4" y="14" width="6" height="6" rx="1"/>
+                        <rect x="14" y="14" width="6" height="6" rx="1"/>
+                    </svg>
+                    <span>Overview</span>
                 </a>
 
-                <a class="side-link" href="<%= ResolveUrl("~/Admin/ManageUsers.aspx") %>">
-                    <span class="side-icon">♙</span> User Management
+                <a class="<%= GetSideNavClass("users") %>" href="<%= ResolveUrl("~/Admin/ManageUsers.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <circle cx="9" cy="8" r="3"/>
+                        <path d="M3 19a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 5"/>
+                    </svg>
+                    <span>User Management</span>
                 </a>
 
-                <details class="side-group" open>
-                    <summary class="side-link">
-                        <span class="side-icon">▤</span> Question Bank
-                        <span class="side-chevron">⌄</span>
-                    </summary>
-                    <div class="side-submenu">
-                        <a href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">All Questions</a>
-                        <a href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">Aptitude Questions</a>
-                        <a href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">Technical Questions</a>
-                        <a href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">Coding Problems</a>
-                    </div>
-                </details>
-
-                <a class="side-link" href="<%= ResolveUrl("~/Admin/ManageTests.aspx") %>">
-                    <span class="side-icon">▣</span> Test Management
+                <a class="<%= GetSideNavClass("questions") %>" href="<%= ResolveUrl("~/Admin/QuestionBank.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="4" y="3" width="16" height="18" rx="2"/>
+                        <path d="M8 7h8M8 11h8M8 15h5"/>
+                    </svg>
+                    <span>Question Bank</span>
                 </a>
 
-                <a class="side-link" href="<%= ResolveUrl("~/Admin/ManageStudents.aspx") %>">
-                    <span class="side-icon">♧</span> Student Management
+                <a class="<%= GetSideNavClass("tests") %>" href="<%= ResolveUrl("~/Admin/ManageTests.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="5" y="3" width="14" height="18" rx="2"/>
+                        <path d="M9 8h6M9 12h6M9 16h3"/>
+                    </svg>
+                    <span>Test Management</span>
                 </a>
 
-                <a class="side-link" href="<%= ResolveUrl("~/Admin/ManageCompanies.aspx") %>">
-                    <span class="side-icon">▦</span> Company Management
+                <a class="<%= GetSideNavClass("students") %>" href="<%= ResolveUrl("~/Admin/ManageStudents.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 3 3 8l9 5 9-5-9-5z"/>
+                        <path d="M5 11v5c0 1.5 3.1 3 7 3s7-1.5 7-3v-5"/>
+                    </svg>
+                    <span>Student Management</span>
                 </a>
 
-                <div class="sidebar-section-title second-section">INTELLIGENCE &amp; AUDIT</div>
-
-                <a class="side-link" href="<%= ResolveUrl("~/Admin/Reports.aspx") %>">
-                    <span class="side-icon">⌁</span> Reports &amp; Analytics
+                <a class="<%= GetSideNavClass("companies") %>" href="<%= ResolveUrl("~/Admin/ManageCompanies.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="4" y="4" width="16" height="16" rx="1"/>
+                        <path d="M8 8h2m4 0h2M8 12h2m4 0h2M8 16h2m4 0h2M11 20v-4h2v4"/>
+                    </svg>
+                    <span>Company Management</span>
                 </a>
 
-                <a class="side-link" href="<%= ResolveUrl("~/Admin/SystemLogs.aspx") %>">
-                    <span class="side-icon">▣</span> System Logs
+                <div class="admin-sidebar-section second">INTELLIGENCE &amp; AUDIT</div>
+
+                <a class="<%= GetSideNavClass("reports") %>" href="<%= ResolveUrl("~/Admin/Reports.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M4 20h16M6 17V11m6 6V4m6 13V8"/>
+                    </svg>
+                    <span>Reports &amp; Analytics</span>
+                </a>
+
+                <a class="<%= GetSideNavClass("logs") %>" href="<%= ResolveUrl("~/Admin/SystemLogs.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="4" width="18" height="15" rx="2"/>
+                        <path d="m8 9-3 3 3 2m4 0 3-5"/>
+                    </svg>
+                    <span>System Logs</span>
                 </a>
             </nav>
 
-            <div class="sidebar-bottom">
-                <a class="side-link" href="<%= ResolveUrl("~/Admin/Settings.aspx") %>">
-                    <span class="side-icon">⚙</span> Settings
+            <div class="admin-sidebar-bottom">
+                <a class="<%= GetBottomNavClass("settings") %>" href="<%= ResolveUrl("~/Admin/Settings.aspx") %>">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                    <span>Settings</span>
                 </a>
-                <a class="side-link logout-link" href="#">
-                    <span class="side-icon">⇥</span> Logout
+                <a class="admin-bottom-link logout" href="<%= ResolveUrl("~/Login.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M10 4H5v16h5m4-4 4-4-4-4m4 4H9"/>
+                    </svg>
+                    <span>Logout</span>
                 </a>
             </div>
         </aside>
 
-        <!-- Individual page content -->
-        <div class="admin-main">
+        <main class="admin-main">
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
-        </div>
+        </main>
     </div>
 
 </form>
