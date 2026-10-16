@@ -16,7 +16,7 @@
     <header class="student-header">
         <a class="student-brand" href="<%= ResolveUrl("~/Student/Dashboard.aspx") %>">
             <span class="student-brand-logo">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 21 7v10l-9 5-9-5V7z"/><path d="m8 9 4-2 4 2v6l-4 2-4-2z"/></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
             </span>
             <span class="student-brand-text">
                 <strong>Placement Prep</strong>
@@ -25,7 +25,7 @@
         </a>
 
         <nav class="student-top-nav">
-            <a class="student-top-link active" href="<%= ResolveUrl("~/Student/Dashboard.aspx") %>">Dashboard</a>
+            <a class="student-top-link" href="<%= ResolveUrl("~/Student/Dashboard.aspx") %>">Dashboard</a>
             <a class="student-top-link" href="<%= ResolveUrl("~/Student/Quantitative.aspx") %>">Practice</a>
             <a class="student-top-link" href="<%= ResolveUrl("~/Student/MockTests.aspx") %>">Mock Tests</a>
             <a class="student-top-link" href="<%= ResolveUrl("~/Student/Resources.aspx") %>">Resources</a>
@@ -36,14 +36,14 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 4 4"/></svg>
                 <input type="search" placeholder="Search tests, topics, formulas..." aria-label="Search" />
             </label>
-            <button type="button" class="student-header-icon" aria-label="Notifications">
+            <a class="student-header-icon" href="<%= ResolveUrl("~/Student/Notifications.aspx") %>" aria-label="Notifications" title="Notifications">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/><path d="M10 21h4"/></svg>
                 <i></i>
-            </button>
-            <a class="student-header-icon" href="<%= ResolveUrl("~/Student/Settings.aspx") %>" aria-label="Settings">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="m19 13 2-1-2-1-.5-2 1-2-2-2-2 1-2-.5-1-2-2 2-.5 2-2 1-2-1-2 2 1 2-.5 2-2 1 2 1 .5 2-1 2 2 2 2-1 2 .5 1 2 2-2 .5-2 2-1 2 1 2-2-1-2z"/></svg>
             </a>
-            <a class="student-profile-link" href="<%= ResolveUrl("~/Student/Profile.aspx") %>" aria-label="Student profile">
+            <a class="student-header-icon" href="<%= ResolveUrl("~/Student/Settings.aspx") %>" aria-label="Settings" title="Account Settings">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </a>
+            <a class="student-profile-link" href="<%= ResolveUrl("~/Student/Profile.aspx") %>" aria-label="Student profile" title="Student Profile">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="3"/><path d="M5 20a7 7 0 0 1 14 0"/></svg>
             </a>
         </div>
@@ -52,7 +52,7 @@
     <div class="student-shell">
         <aside class="student-sidebar">
             <nav class="student-side-nav">
-                <a class="student-side-link active" href="<%= ResolveUrl("~/Student/Dashboard.aspx") %>">
+                <a class="student-side-link" href="<%= ResolveUrl("~/Student/Dashboard.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg>
                     <span>Course Overview</span>
                 </a>
@@ -79,6 +79,10 @@
             </nav>
 
             <div class="student-sidebar-bottom">
+                <a class="student-bottom-link" href="<%= ResolveUrl("~/Student/Settings.aspx") %>">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    <span>Settings</span>
+                </a>
                 <a class="student-bottom-link" href="<%= ResolveUrl("~/Student/Help.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.5 1.5c-1.3 1.3-2 1.5-2 3m0 3h.01"/></svg>
                     <span>Help Center</span>
@@ -94,6 +98,83 @@
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server" />
         </main>
     </div>
+
+    <!-- Active Navigation Highlight Script -->
+    <script type="text/javascript">
+        (function () {
+            function updateActiveNavigation() {
+                var path = (window.location.pathname || '').toLowerCase();
+                
+                // Clear any existing active flags
+                var navLinks = document.querySelectorAll('.student-top-link, .student-side-link, .student-bottom-link, .student-header-icon, .student-profile-link');
+                for (var i = 0; i < navLinks.length; i++) {
+                    navLinks[i].classList.remove('active');
+                }
+
+                // Sub-feature mapping to parent feature routes
+                var isDashboard = path.indexOf('dashboard') !== -1 || path.endsWith('/student/') || path.endsWith('/student');
+                var isQuantitative = path.indexOf('quantitative') !== -1 || path.indexOf('testresults') !== -1 || path.indexOf('testreview') !== -1;
+                var isCoding = path.indexOf('codingproblems') !== -1 || path.indexOf('problemdetails') !== -1 || path.indexOf('codeeditor') !== -1;
+                var isResume = path.indexOf('resumeanalyzer') !== -1 || path.indexOf('resumeviewer') !== -1 || path.indexOf('airesumeanalysis') !== -1 || path.indexOf('skillgapanalysis') !== -1;
+                var isInterview = path.indexOf('interviewprep') !== -1 || path.indexOf('liveinterview') !== -1 || path.indexOf('interviewfeedback') !== -1;
+                var isFeedback = path.indexOf('feedbackhub') !== -1;
+                var isMockTests = path.indexOf('mocktests') !== -1;
+                var isResources = path.indexOf('resources') !== -1;
+                var isHelp = path.indexOf('help') !== -1;
+                var isSettings = path.indexOf('settings') !== -1;
+                var isProfile = path.indexOf('profile') !== -1;
+                var isNotifications = path.indexOf('notifications') !== -1;
+
+                // 1. Top Navigation
+                if (isDashboard) {
+                    markSelectorActive('.student-top-link[href*="Dashboard"]');
+                } else if (isQuantitative) {
+                    markSelectorActive('.student-top-link[href*="Quantitative"]');
+                } else if (isMockTests) {
+                    markSelectorActive('.student-top-link[href*="MockTests"]');
+                } else if (isResources) {
+                    markSelectorActive('.student-top-link[href*="Resources"]');
+                }
+
+                // 2. Sidebar Navigation
+                if (isDashboard) {
+                    markSelectorActive('.student-side-link[href*="Dashboard"]');
+                } else if (isQuantitative) {
+                    markSelectorActive('.student-side-link[href*="Quantitative"]');
+                } else if (isCoding) {
+                    markSelectorActive('.student-side-link[href*="CodingProblems"]');
+                } else if (isResume) {
+                    markSelectorActive('.student-side-link[href*="ResumeAnalyzer"]');
+                } else if (isInterview) {
+                    markSelectorActive('.student-side-link[href*="InterviewPrep"]');
+                } else if (isFeedback) {
+                    markSelectorActive('.student-side-link[href*="FeedbackHub"]');
+                } else if (isSettings) {
+                    markSelectorActive('.student-bottom-link[href*="Settings"]');
+                    markSelectorActive('.student-header-icon[href*="Settings"]');
+                } else if (isHelp) {
+                    markSelectorActive('.student-bottom-link[href*="Help"]');
+                } else if (isProfile) {
+                    markSelectorActive('.student-profile-link[href*="Profile"]');
+                } else if (isNotifications) {
+                    markSelectorActive('.student-header-icon[href*="Notifications"]');
+                }
+
+                function markSelectorActive(sel) {
+                    var el = document.querySelector(sel);
+                    if (el) {
+                        el.classList.add('active');
+                    }
+                }
+            }
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', updateActiveNavigation);
+            } else {
+                updateActiveNavigation();
+            }
+        })();
+    </script>
 </form>
 </body>
 </html>

@@ -1,4 +1,4 @@
-﻿
+
 # Visual Studio user-specific files
 .vs/
 *.suo
@@ -60,3 +60,4 @@ desktop.ini
 
 # Keep project dependencies and configuration
 # packages.config and Web.config should be committed.
+nuget.exe

@@ -152,6 +152,26 @@
     <Content Include="Resources\css\faculty.css" />
     <Content Include="Resources\css\student.css" />
     <Content Include="Student\Dashboard.aspx" />
+    <Content Include="Student\ResumeAnalyzer.aspx" />
+    <Content Include="Student\ResumeViewer.aspx" />
+    <Content Include="Student\AIResumeAnalysis.aspx" />
+    <Content Include="Student\SkillGapAnalysis.aspx" />
+    <Content Include="Student\Quantitative.aspx" />
+    <Content Include="Student\TestResults.aspx" />
+    <Content Include="Student\TestReview.aspx" />
+    <Content Include="Student\CodingProblems.aspx" />
+    <Content Include="Student\ProblemDetails.aspx" />
+    <Content Include="Student\CodeEditor.aspx" />
+    <Content Include="Student\MockTests.aspx" />
+    <Content Include="Student\InterviewPrep.aspx" />
+    <Content Include="Student\LiveInterview.aspx" />
+    <Content Include="Student\FeedbackHub.aspx" />
+    <Content Include="Student\InterviewFeedback.aspx" />
+    <Content Include="Student\Help.aspx" />
+    <Content Include="Student\Settings.aspx" />
+    <Content Include="Student\Profile.aspx" />
+    <Content Include="Student\Resources.aspx" />
+    <Content Include="Student\Notifications.aspx" />
     <Content Include="Web.config" />
     <Content Include="Database\PlacementPrep_Schema.sql" />
     <Content Include="Database\Placement_Prep_Database.sql" />
@@ -466,6 +486,146 @@
     </Compile>
     <Compile Include="Student\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\ResumeAnalyzer.aspx.cs">
+      <DependentUpon>ResumeAnalyzer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\ResumeAnalyzer.aspx.designer.cs">
+      <DependentUpon>ResumeAnalyzer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\ResumeViewer.aspx.cs">
+      <DependentUpon>ResumeViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\ResumeViewer.aspx.designer.cs">
+      <DependentUpon>ResumeViewer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\AIResumeAnalysis.aspx.cs">
+      <DependentUpon>AIResumeAnalysis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\AIResumeAnalysis.aspx.designer.cs">
+      <DependentUpon>AIResumeAnalysis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\SkillGapAnalysis.aspx.cs">
+      <DependentUpon>SkillGapAnalysis.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\SkillGapAnalysis.aspx.designer.cs">
+      <DependentUpon>SkillGapAnalysis.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Quantitative.aspx.cs">
+      <DependentUpon>Quantitative.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Quantitative.aspx.designer.cs">
+      <DependentUpon>Quantitative.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\TestResults.aspx.cs">
+      <DependentUpon>TestResults.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\TestResults.aspx.designer.cs">
+      <DependentUpon>TestResults.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\TestReview.aspx.cs">
+      <DependentUpon>TestReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\TestReview.aspx.designer.cs">
+      <DependentUpon>TestReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\CodingProblems.aspx.cs">
+      <DependentUpon>CodingProblems.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\CodingProblems.aspx.designer.cs">
+      <DependentUpon>CodingProblems.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\ProblemDetails.aspx.cs">
+      <DependentUpon>ProblemDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\ProblemDetails.aspx.designer.cs">
+      <DependentUpon>ProblemDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\CodeEditor.aspx.cs">
+      <DependentUpon>CodeEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\CodeEditor.aspx.designer.cs">
+      <DependentUpon>CodeEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\MockTests.aspx.cs">
+      <DependentUpon>MockTests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\MockTests.aspx.designer.cs">
+      <DependentUpon>MockTests.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\InterviewPrep.aspx.cs">
+      <DependentUpon>InterviewPrep.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\InterviewPrep.aspx.designer.cs">
+      <DependentUpon>InterviewPrep.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\LiveInterview.aspx.cs">
+      <DependentUpon>LiveInterview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\LiveInterview.aspx.designer.cs">
+      <DependentUpon>LiveInterview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\FeedbackHub.aspx.cs">
+      <DependentUpon>FeedbackHub.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\FeedbackHub.aspx.designer.cs">
+      <DependentUpon>FeedbackHub.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\InterviewFeedback.aspx.cs">
+      <DependentUpon>InterviewFeedback.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\InterviewFeedback.aspx.designer.cs">
+      <DependentUpon>InterviewFeedback.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Profile.aspx.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Profile.aspx.designer.cs">
+      <DependentUpon>Profile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Resources.aspx.cs">
+      <DependentUpon>Resources.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Resources.aspx.designer.cs">
+      <DependentUpon>Resources.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Student\Notifications.aspx.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Student\Notifications.aspx.designer.cs">
+      <DependentUpon>Notifications.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
