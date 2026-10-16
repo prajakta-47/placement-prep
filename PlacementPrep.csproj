@@ -103,6 +103,33 @@
   <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="Admin\AdminDashboard.aspx" />
+    <Content Include="Admin\Curriculum.aspx" />
+    <Content Include="Admin\Help.aspx" />
+    <Content Include="Admin\ManageCompanies.aspx" />
+    <Content Include="Admin\CompanyDetails.aspx" />
+    <Content Include="Admin\ManageDrives.aspx" />
+    <Content Include="Admin\PlacementDrives.aspx" />
+    <Content Include="Admin\DriveDetails.aspx" />
+    <Content Include="Admin\ManageStudents.aspx" />
+    <Content Include="Admin\StudentDetails.aspx" />
+    <Content Include="Admin\ManageTests.aspx" />
+    <Content Include="Admin\ManageUsers.aspx" />
+    <Content Include="Admin\QuestionBank.aspx" />
+    <Content Include="Admin\AptitudeQuestions.aspx" />
+    <Content Include="Admin\TechnicalQuestions.aspx" />
+    <Content Include="Admin\CodingQuestions.aspx" />
+    <Content Include="Admin\AptitudeQuestionEditor.aspx" />
+    <Content Include="Admin\TechnicalQuestionEditor.aspx" />
+    <Content Include="Admin\CodingProblemEditor.aspx" />
+    <Content Include="Admin\CreateTest.aspx" />
+    <Content Include="Admin\TestDetails.aspx" />
+    <Content Include="Admin\Reports.aspx" />
+    <Content Include="Admin\Settings.aspx" />
+    <Content Include="Admin\SystemLogs.aspx" />
+    <Content Include="App_Data\placement-prep.mdf" />
+    <Content Include="App_Data\placement-prep_log.ldf">
+      <DependentUpon>placement-prep.mdf</DependentUpon>
+    </Content>
     <Content Include="Faculty\Dashboard.aspx" />
     <Content Include="Faculty\AIConfig.aspx" />
     <Content Include="Faculty\AIPromptConfiguration.aspx" />
@@ -147,6 +174,188 @@
     <Compile Include="Admin\AdminDashboard.aspx.designer.cs">
       <DependentUpon>AdminDashboard.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Admin\Curriculum.aspx.cs">
+      <DependentUpon>Curriculum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Curriculum.aspx.designer.cs">
+      <DependentUpon>Curriculum.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Help.aspx.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Help.aspx.designer.cs">
+      <DependentUpon>Help.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageCompanies.aspx.cs">
+      <DependentUpon>ManageCompanies.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageCompanies.aspx.designer.cs">
+      <DependentUpon>ManageCompanies.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageStudents.aspx.cs">
+      <DependentUpon>ManageStudents.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageStudents.aspx.designer.cs">
+      <DependentUpon>ManageStudents.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\StudentDetails.aspx.cs">
+      <DependentUpon>StudentDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\StudentDetails.aspx.designer.cs">
+      <DependentUpon>StudentDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageTests.aspx.cs">
+      <DependentUpon>ManageTests.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageTests.aspx.designer.cs">
+      <DependentUpon>ManageTests.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageUsers.aspx.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageUsers.aspx.designer.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\QuestionBank.aspx.cs">
+      <DependentUpon>QuestionBank.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\QuestionBank.aspx.designer.cs">
+      <DependentUpon>QuestionBank.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Reports.aspx.designer.cs">
+      <DependentUpon>Reports.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Settings.aspx.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Settings.aspx.designer.cs">
+      <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\SystemLogs.aspx.cs">
+      <DependentUpon>SystemLogs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\SystemLogs.aspx.designer.cs">
+      <DependentUpon>SystemLogs.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AptitudeQuestions.aspx.cs">
+      <DependentUpon>AptitudeQuestions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AptitudeQuestions.aspx.designer.cs">
+      <DependentUpon>AptitudeQuestions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TechnicalQuestions.aspx.cs">
+      <DependentUpon>TechnicalQuestions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TechnicalQuestions.aspx.designer.cs">
+      <DependentUpon>TechnicalQuestions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\CodingQuestions.aspx.cs">
+      <DependentUpon>CodingQuestions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\CodingQuestions.aspx.designer.cs">
+      <DependentUpon>CodingQuestions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\AptitudeQuestionEditor.aspx.cs">
+      <DependentUpon>AptitudeQuestionEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AptitudeQuestionEditor.aspx.designer.cs">
+      <DependentUpon>AptitudeQuestionEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TechnicalQuestionEditor.aspx.cs">
+      <DependentUpon>TechnicalQuestionEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TechnicalQuestionEditor.aspx.designer.cs">
+      <DependentUpon>TechnicalQuestionEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\CodingProblemEditor.aspx.cs">
+      <DependentUpon>CodingProblemEditor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\CodingProblemEditor.aspx.designer.cs">
+      <DependentUpon>CodingProblemEditor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\CreateTest.aspx.cs">
+      <DependentUpon>CreateTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\CreateTest.aspx.designer.cs">
+      <DependentUpon>CreateTest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\TestDetails.aspx.cs">
+      <DependentUpon>TestDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\TestDetails.aspx.designer.cs">
+      <DependentUpon>TestDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\CompanyDetails.aspx.cs">
+      <DependentUpon>CompanyDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\CompanyDetails.aspx.designer.cs">
+      <DependentUpon>CompanyDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ManageDrives.aspx.cs">
+      <DependentUpon>ManageDrives.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ManageDrives.aspx.designer.cs">
+      <DependentUpon>ManageDrives.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PlacementDrives.aspx.cs">
+      <DependentUpon>PlacementDrives.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PlacementDrives.aspx.designer.cs">
+      <DependentUpon>PlacementDrives.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\DriveDetails.aspx.cs">
+      <DependentUpon>DriveDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\DriveDetails.aspx.designer.cs">
+      <DependentUpon>DriveDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\DbHelper.cs" />
+    <Compile Include="Helpers\PasswordHelper.cs" />
+    <Compile Include="Helpers\UserRepository.cs" />
+    <Compile Include="Helpers\QuestionRepository.cs" />
+    <Compile Include="Helpers\TestRepository.cs" />
+    <Compile Include="Helpers\StudentRepository.cs" />
+    <Compile Include="Helpers\AppUser.cs" />
+    <Compile Include="Helpers\QuestionItem.cs" />
+    <Compile Include="Helpers\TestItem.cs" />
+    <Compile Include="Helpers\StudentItem.cs" />
+    <Compile Include="Helpers\CodingProblemItem.cs" />
+    <Compile Include="Helpers\CodingProblemRepository.cs" />
+    <Compile Include="Helpers\CompanyItem.cs" />
+    <Compile Include="Helpers\CompanyRepository.cs" />
+    <Compile Include="Helpers\PlacementDriveItem.cs" />
+    <Compile Include="Helpers\PlacementDriveRepository.cs" />
+    <Compile Include="Helpers\AuditLogItem.cs" />
+    <Compile Include="Helpers\AuditLogRepository.cs" />
+    <Compile Include="Helpers\SettingsItem.cs" />
+    <Compile Include="Helpers\SettingsRepository.cs" />
+    <Compile Include="Helpers\AnalyticsRepository.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Faculty.Master.cs">
@@ -272,9 +481,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Database\" />
-    <Folder Include="Helpers\" />
     <Folder Include="Resources\images\" />
   </ItemGroup>
   <PropertyGroup>
