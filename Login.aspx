@@ -1,12 +1,13 @@
 <%@ Page Language="C#" AutoEventWireup="true" %>
+<%@ Import Namespace="PlacementPrep.Helpers" %>
 <script runat="server">
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            if (Request.QueryString["logout"] == "true")
+            if (string.Equals(Request.QueryString["logout"], "true", StringComparison.OrdinalIgnoreCase))
             {
-                Session.Clear();
+                AuthHelper.SignOut(Session);
                 pnlAlert.Visible = true;
                 pnlAlert.CssClass = "alert-banner alert-success";
                 litAlert.Text = "✓ You have been logged out successfully. Please sign in to continue.";
@@ -17,7 +18,7 @@
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         string email = txtEmail.Text.Trim();
-        string pass = txtPassword.Text.Trim();
+        string pass = txtPassword.Text;
 
         if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(pass))
         {
@@ -27,36 +28,20 @@
             return;
         }
 
-        string emailLower = email.ToLowerInvariant();
-        string role = "Student";
+        string role;
+        string displayName;
+        if (AuthHelper.ValidateCredentials(email, pass, out role, out displayName))
+        {
+            AuthHelper.SetAuthSession(Session, email, role, displayName);
 
-        if (emailLower.Contains("faculty") || emailLower.Contains("sharma") || emailLower.Contains("prof") || emailLower.Contains("coordinator"))
-        {
-            role = "Faculty";
-        }
-        else if (emailLower.Contains("admin") || emailLower.Contains("cell"))
-        {
-            role = "Admin";
+            string targetUrl = AuthHelper.GetDashboardUrl(role);
+            Response.Redirect(targetUrl, true);
         }
         else
         {
-            role = "Student";
-        }
-
-        Session["UserRole"] = role;
-        Session["UserEmail"] = email;
-
-        if (role == "Faculty")
-        {
-            Response.Redirect("~/Faculty/Dashboard.aspx", true);
-        }
-        else if (role == "Admin")
-        {
-            Response.Redirect("~/Admin/AdminDashboard.aspx", true);
-        }
-        else
-        {
-            Response.Redirect("~/Student/Dashboard.aspx", true);
+            pnlAlert.Visible = true;
+            pnlAlert.CssClass = "alert-banner alert-error";
+            litAlert.Text = "Invalid email address or password. Please verify your demo credentials.";
         }
     }
 </script>
@@ -219,6 +204,122 @@
             background: #fef2f2;
             border: 1px solid #fecaca;
             color: #991b1b;
+        }
+
+        .demo-creds-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+        }
+
+        .demo-creds-title {
+            font-size: 11.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #475569;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .demo-creds-tag {
+            font-size: 10px;
+            font-weight: 600;
+            color: #0d766e;
+            background: #ccfbf1;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .demo-creds-list {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .demo-cred-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 11.5px;
+            transition: all 0.15s ease;
+        }
+
+        .demo-cred-item:hover {
+            border-color: #0d766e;
+            background: #f0fdfa;
+        }
+
+        .demo-cred-details {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            overflow: hidden;
+        }
+
+        .demo-role-badge {
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .badge-admin { background: #f3e8ff; color: #7e22ce; }
+        .badge-faculty { background: #e0f2fe; color: #0369a1; }
+        .badge-student { background: #dcfce7; color: #15803d; }
+
+        .demo-cred-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.25;
+        }
+
+        .demo-cred-text strong {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 11px;
+        }
+
+        .demo-cred-text span {
+            font-size: 10.5px;
+            color: #64748b;
+        }
+
+        .demo-cred-text code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            background: #f1f5f9;
+            padding: 1px 4px;
+            border-radius: 3px;
+            color: #0f172a;
+            font-size: 10px;
+        }
+
+        .demo-autofill-btn {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            color: #334155;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            flex-shrink: 0;
+        }
+
+        .demo-autofill-btn:hover {
+            background: #0d766e;
+            border-color: #0d766e;
+            color: #ffffff;
         }
 
         .field-group {
@@ -514,6 +615,46 @@
                     <asp:Literal ID="litAlert" runat="server" />
                 </asp:Panel>
 
+                <!-- Compact Demo Credentials Section -->
+                <div class="demo-creds-box">
+                    <div class="demo-creds-title">
+                        <span>Demo Credentials</span>
+                        <span class="demo-creds-tag">1-Click Autofill</span>
+                    </div>
+                    <div class="demo-creds-list">
+                        <div class="demo-cred-item">
+                            <div class="demo-cred-details">
+                                <span class="demo-role-badge badge-admin">Admin</span>
+                                <div class="demo-cred-text">
+                                    <strong>admin@placementprep.local</strong>
+                                    <span>PW: <code>Admin@123</code></span>
+                                </div>
+                            </div>
+                            <button type="button" class="demo-autofill-btn" onclick="fillCredentials('admin@placementprep.local', 'Admin@123')">Autofill</button>
+                        </div>
+                        <div class="demo-cred-item">
+                            <div class="demo-cred-details">
+                                <span class="demo-role-badge badge-faculty">Faculty</span>
+                                <div class="demo-cred-text">
+                                    <strong>faculty@placementprep.local</strong>
+                                    <span>PW: <code>Faculty@123</code></span>
+                                </div>
+                            </div>
+                            <button type="button" class="demo-autofill-btn" onclick="fillCredentials('faculty@placementprep.local', 'Faculty@123')">Autofill</button>
+                        </div>
+                        <div class="demo-cred-item">
+                            <div class="demo-cred-details">
+                                <span class="demo-role-badge badge-student">Student</span>
+                                <div class="demo-cred-text">
+                                    <strong>student@placementprep.local</strong>
+                                    <span>PW: <code>Student@123</code></span>
+                                </div>
+                            </div>
+                            <button type="button" class="demo-autofill-btn" onclick="fillCredentials('student@placementprep.local', 'Student@123')">Autofill</button>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Email Field -->
                 <div class="field-group">
                     <label class="field-label" for="<%= txtEmail.ClientID %>">Email Address</label>
@@ -530,7 +671,7 @@
                 <div class="field-group">
                     <div class="field-label-row">
                         <label class="field-label" style="margin-bottom:0;" for="<%= txtPassword.ClientID %>">Password</label>
-                        <a href="javascript:void(0);" onclick="alert('Password reset instructions will be sent to your registered email address.');" class="forgot-link">Forgot Password?</a>
+                        <a href="<%= ResolveUrl("~/ForgotPassword.aspx") %>" class="forgot-link">Forgot Password?</a>
                     </div>
                     <div class="input-icon-box">
                         <svg class="input-icon-left" viewBox="0 0 24 24">
@@ -604,6 +745,17 @@
             } else {
                 input.type = 'password';
                 icon.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
+            }
+        }
+
+        function fillCredentials(email, pwd) {
+            var emailInput = document.getElementById('<%= txtEmail.ClientID %>');
+            var pwdInput = document.getElementById('<%= txtPassword.ClientID %>');
+            if (emailInput) {
+                emailInput.value = email;
+            }
+            if (pwdInput) {
+                pwdInput.value = pwd;
             }
         }
     </script>

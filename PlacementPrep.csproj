@@ -146,6 +146,7 @@
     <Content Include="Faculty\Announcements.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="ForgotPassword.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Resources\css\admin.css" />
     <Content Include="Resources\css\common.css" />
@@ -355,6 +356,15 @@
     <Compile Include="Admin\DriveDetails.aspx.designer.cs">
       <DependentUpon>DriveDetails.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ForgotPassword.aspx.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForgotPassword.aspx.designer.cs">
+      <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\PasswordResetService.cs" />
+    <Compile Include="Helpers\AuthHelper.cs" />
     <Compile Include="Helpers\DbHelper.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\UserRepository.cs" />
@@ -641,7 +651,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Database\" />
     <Folder Include="Resources\images\" />
   </ItemGroup>
   <PropertyGroup>

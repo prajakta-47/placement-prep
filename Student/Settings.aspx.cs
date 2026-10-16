@@ -5,27 +5,7 @@ namespace PlacementPrep
 {
     public partial class Settings : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                pnlSettingsNotice.Visible = false;
-                if (Session["StudentFullName"] != null)
-                {
-                    txtFullName.Text = Session["StudentFullName"].ToString();
-                }
-                if (Session["StudentEmail"] != null)
-                {
-                    txtEmail.Text = Session["StudentEmail"].ToString();
-                }
-                if (Session["StudentAvatarUrl"] != null)
-                {
-                    imgAvatar.ImageUrl = Session["StudentAvatarUrl"].ToString();
-                    imgAvatar.Visible = true;
-                    litAvatarInitials.Visible = false;
-                }
-            }
-        }
+        // Note: Page_Load is defined in the partial class Settings (Admin/Settings.aspx.cs)
 
         protected void btnSaveProfile_Click(object sender, EventArgs e)
         {

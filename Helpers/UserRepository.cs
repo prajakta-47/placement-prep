@@ -38,6 +38,45 @@ namespace PlacementPrep.Helpers
                 {
                     new AppUser
                     {
+                        UserId = 101,
+                        FullName = "System Administrator",
+                        Email = "admin@placementprep.local",
+                        EnrollmentId = "ADM-0001",
+                        UserRole = "Admin",
+                        Department = "Placement Cell",
+                        AccountStatus = "Active",
+                        IsOnboardingCompleted = true,
+                        LastActiveAt = DateTime.UtcNow,
+                        CreatedAt = new DateTime(2023, 10, 15, 11, 0, 0, DateTimeKind.Utc)
+                    },
+                    new AppUser
+                    {
+                        UserId = 102,
+                        FullName = "Prof. Faculty Coordinator",
+                        Email = "faculty@placementprep.local",
+                        EnrollmentId = "FAC-0001",
+                        UserRole = "Faculty",
+                        Department = "Computer Science",
+                        AccountStatus = "Active",
+                        IsOnboardingCompleted = true,
+                        LastActiveAt = DateTime.UtcNow,
+                        CreatedAt = new DateTime(2024, 1, 10, 9, 30, 0, DateTimeKind.Utc)
+                    },
+                    new AppUser
+                    {
+                        UserId = 103,
+                        FullName = "Demo Student",
+                        Email = "student@placementprep.local",
+                        EnrollmentId = "STU-0001",
+                        UserRole = "Student",
+                        Department = "Computer Science",
+                        AccountStatus = "Active",
+                        IsOnboardingCompleted = true,
+                        LastActiveAt = DateTime.UtcNow,
+                        CreatedAt = new DateTime(2024, 8, 20, 14, 15, 0, DateTimeKind.Utc)
+                    },
+                    new AppUser
+                    {
                         UserId = 1,
                         FullName = "Dr. Arvind Menon",
                         Email = "arvind.m@univ.edu",
@@ -352,6 +391,19 @@ namespace PlacementPrep.Helpers
             lock (SyncLock)
             {
                 var user = _sampleUsers.FirstOrDefault(u => u.UserId == userId);
+                return user == null ? null : CloneUser(user);
+            }
+        }
+
+        public AppUser GetByEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email)) return null;
+            var clean = email.Trim();
+
+            lock (SyncLock)
+            {
+                var user = _sampleUsers.FirstOrDefault(u =>
+                    string.Equals(u.Email, clean, StringComparison.OrdinalIgnoreCase));
                 return user == null ? null : CloneUser(user);
             }
         }

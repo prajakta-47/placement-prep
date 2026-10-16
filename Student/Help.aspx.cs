@@ -5,13 +5,7 @@ namespace PlacementPrep
 {
     public partial class Help : System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!IsPostBack)
-            {
-                pnlTicketNotice.Visible = false;
-            }
-        }
+        // Note: Page_Load is defined in the partial class Help (Admin/Help.aspx.cs)
 
         protected void btnSubmitTicket_Click(object sender, EventArgs e)
         {
