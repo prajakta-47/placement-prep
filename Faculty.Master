@@ -1,4 +1,4 @@
-﻿
+
 <%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Faculty.master.cs" Inherits="PlacementPrep.FacultyMaster" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,24 +31,25 @@
             </span>
         </a>
 
-        <label class="faculty-search">
+        <div class="faculty-search">
             <svg viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="11" cy="11" r="7"/>
                 <path d="m16 16 4 4"/>
             </svg>
-            <input type="search" placeholder="Search users, companies, reports..."
-                   aria-label="Search users, companies and reports" />
-        </label>
+            <input type="search" id="globalNavSearch" placeholder="Search students, companies, reports..."
+                   aria-label="Search users, companies and reports"
+                   onkeydown="if(event.key==='Enter'){event.preventDefault();window.location.href='<%= ResolveUrl("~/Faculty/Students.aspx") %>?q=' + encodeURIComponent(this.value);}" />
+        </div>
 
         <nav class="faculty-top-nav">
-            <a class="faculty-top-link active" href="<%= ResolveUrl("~/Faculty/Dashboard.aspx") %>">Dashboard</a>
-            <a class="faculty-top-link" href="<%= ResolveUrl("~/Faculty/Students.aspx") %>">Students</a>
-            <a class="faculty-top-link" href="<%= ResolveUrl("~/Faculty/Curriculum.aspx") %>">Curriculum</a>
-            <a class="faculty-top-link" href="<%= ResolveUrl("~/Faculty/Analytics.aspx") %>">Analytics</a>
+            <a class='faculty-top-link <%= IsActive("Dashboard.aspx") %>' href="<%= ResolveUrl("~/Faculty/Dashboard.aspx") %>">Dashboard</a>
+            <a class='faculty-top-link <%= IsActive("Students.aspx", "StudentProfile.aspx", "StudentManagement.aspx") %>' href="<%= ResolveUrl("~/Faculty/Students.aspx") %>">Students</a>
+            <a class='faculty-top-link <%= IsActive("Curriculum.aspx", "CurriculumManagement.aspx") %>' href="<%= ResolveUrl("~/Faculty/Curriculum.aspx") %>">Curriculum</a>
+            <a class='faculty-top-link <%= IsActive("Analytics.aspx", "PerformanceAnalytics.aspx") %>' href="<%= ResolveUrl("~/Faculty/Analytics.aspx") %>">Analytics</a>
         </nav>
 
         <div class="faculty-header-actions">
-            <button type="button" class="faculty-icon-button" aria-label="Notifications">
+            <button type="button" class="faculty-icon-button" id="btnNotifications" onclick="toggleNotifDropdown(event)" aria-label="Notifications" title="Notifications">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
                     <path d="M10 21h4"/>
@@ -56,19 +57,68 @@
                 <i></i>
             </button>
 
-            <a class="faculty-icon-button" href="<%= ResolveUrl("~/Faculty/Settings.aspx") %>" aria-label="Settings">
+            <!-- Notifications Dropdown -->
+            <div class="faculty-notifications-dropdown" id="notifDropdown" style="display:none;">
+                <div class="notif-header">
+                    <span>Notifications &amp; Alerts</span>
+                    <span style="font-size:10px; color:var(--fac-teal); cursor:pointer;" onclick="document.getElementById('notifDropdown').style.display='none';">Mark all read</span>
+                </div>
+                <div class="notif-item">
+                    <strong>Tech Mahindra Campus Mock Test</strong>
+                    <p>Mandatory batch mock test scheduled for Oct 12 at 10:00 AM.</p>
+                    <small>1 hour ago</small>
+                </div>
+                <div class="notif-item">
+                    <strong>Proctor Flag Detected</strong>
+                    <p>Window focus changed during coding lab for 24SOECE1105.</p>
+                    <small>4 hours ago</small>
+                </div>
+                <div class="notif-item">
+                    <strong>Curriculum Rubric Updated</strong>
+                    <p>Dynamic Programming problem set updated for campus readiness.</p>
+                    <small>Yesterday</small>
+                </div>
+            </div>
+
+            <a class='faculty-icon-button <%= IsActive("Settings.aspx", "ProfileSettings.aspx") %>' 
+               href="<%= ResolveUrl("~/Faculty/Settings.aspx") %>" 
+               aria-label="Settings" 
+               title="Settings">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="12" r="3"/>
-                    <path d="m19 13 2-1-2-1-.5-2 1-2-2-2-2 1-2-.5-1-2-2 2-.5 2-2 1-2-1-2 2 1 2-.5 2-2 1 2 1 .5 2-1 2 2 2 2-1 2 .5 1 2 2-2 .5-2 2-1 2 1 2-2-1-2z"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
                 </svg>
             </a>
 
-            <a class="faculty-profile-button" href="<%= ResolveUrl("~/Faculty/Profile.aspx") %>" aria-label="Faculty profile">
+            <button type="button" class="faculty-profile-button" id="btnProfile" onclick="toggleProfileDropdown(event)" aria-label="Faculty profile" title="Prof. R. Sharma (Coordinator)">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="8" r="3"/>
                     <path d="M5 20a7 7 0 0 1 14 0"/>
                 </svg>
-            </a>
+            </button>
+
+            <!-- Profile Dropdown -->
+            <div class="faculty-profile-dropdown" id="profileDropdown" style="display:none;">
+                <div class="profile-dd-header">
+                    <div class="profile-dd-name">Prof. R. Sharma</div>
+                    <div class="profile-dd-role">Faculty &amp; Placement Coordinator</div>
+                    <div class="profile-dd-email">r.sharma@campus.edu</div>
+                </div>
+                <div class="profile-dd-divider"></div>
+                <a class="profile-dd-item" href="<%= ResolveUrl("~/Faculty/Settings.aspx") %>">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    <span>Settings &amp; Preferences</span>
+                </a>
+                <a class="profile-dd-item" href="<%= ResolveUrl("~/Faculty/Help.aspx") %>">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 4.5 1.5c-1.3 1.3-2 1.5-2 3m0 3h.01"/></svg>
+                    <span>Help &amp; Support</span>
+                </a>
+                <div class="profile-dd-divider"></div>
+                <a class="profile-dd-item logout" href="<%= ResolveUrl("~/Login.aspx?logout=true") %>">
+                    <svg viewBox="0 0 24 24"><path d="M10 4H5v16h5m4-4 4-4-4-4m4 4H9"/></svg>
+                    <span>Sign Out / Logout</span>
+                </a>
+            </div>
         </div>
     </header>
 
@@ -82,7 +132,7 @@
 
             <nav class="faculty-side-nav">
 
-                <a class="faculty-side-link active" href="<%= ResolveUrl("~/Faculty/Dashboard.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("Dashboard.aspx") %>" href="<%= ResolveUrl("~/Faculty/Dashboard.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <rect x="4" y="4" width="6" height="6" rx="1"/>
                         <rect x="14" y="4" width="6" height="6" rx="1"/>
@@ -92,7 +142,7 @@
                     <span>Overview</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/Students.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("Students.aspx") %>" href="<%= ResolveUrl("~/Faculty/Students.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <circle cx="9" cy="8" r="3"/>
                         <path d="M3 19a6 6 0 0 1 12 0M16 5a3 3 0 0 1 0 6m2 3a5 5 0 0 1 3 5"/>
@@ -100,7 +150,7 @@
                     <span>Student Management</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/AIConfig.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("AIConfig.aspx", "AIPromptConfiguration.aspx") %>" href="<%= ResolveUrl("~/Faculty/AIConfig.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M12 3a7 7 0 0 0-4 12.7V19h8v-3.3A7 7 0 0 0 12 3z"/>
                         <path d="M9 22h6m-3-15v5m-2-2h4"/>
@@ -108,7 +158,7 @@
                     <span>AI Config</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/Companies.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("Companies.aspx") %>" href="<%= ResolveUrl("~/Faculty/Companies.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <rect x="4" y="4" width="16" height="16" rx="1"/>
                         <path d="M8 8h2m4 0h2M8 12h2m4 0h2M8 16h2m4 0h2M11 20v-4h2v4"/>
@@ -116,7 +166,7 @@
                     <span>Company Directory</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/BatchReports.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("BatchReports.aspx") %>" href="<%= ResolveUrl("~/Faculty/BatchReports.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M4 20h16M6 17V11m6 6V4m6 13V8"/>
                         <path d="M4 11h4m2-7h4m2 4h4"/>
@@ -124,7 +174,7 @@
                     <span>Batch Reports</span>
                 </a>
 
-                <a class="faculty-side-link" href="<%= ResolveUrl("~/Faculty/SystemLogs.aspx") %>">
+                <a class="faculty-side-link <%= IsActive("SystemLogs.aspx") %>" href="<%= ResolveUrl("~/Faculty/SystemLogs.aspx") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <rect x="3" y="4" width="18" height="15" rx="2"/>
                         <path d="m8 9-3 3 3 2m4 0 3-5m-9 12h10"/>
@@ -142,7 +192,7 @@
                     </svg>
                     <span>Help Center</span>
                 </a>
-                <a class="faculty-bottom-link logout" href="<%= ResolveUrl("~/Login.aspx") %>">
+                <a class="faculty-bottom-link logout" href="<%= ResolveUrl("~/Login.aspx?logout=true") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M10 4H5v16h5m4-4 4-4-4-4m4 4H9"/>
                     </svg>
@@ -159,5 +209,41 @@
     </div>
 
 </form>
+<script>
+    function toggleNotifDropdown(e) {
+        if (e) e.stopPropagation();
+        var dd = document.getElementById('notifDropdown');
+        var pdd = document.getElementById('profileDropdown');
+        if (pdd) pdd.style.display = 'none';
+        if (dd) {
+            dd.style.display = (dd.style.display === 'none' || dd.style.display === '') ? 'block' : 'none';
+        }
+    }
+    function toggleProfileDropdown(e) {
+        if (e) e.stopPropagation();
+        var pdd = document.getElementById('profileDropdown');
+        var dd = document.getElementById('notifDropdown');
+        if (dd) dd.style.display = 'none';
+        if (pdd) {
+            pdd.style.display = (pdd.style.display === 'none' || pdd.style.display === '') ? 'block' : 'none';
+        }
+    }
+    document.addEventListener('click', function(e) {
+        var dd = document.getElementById('notifDropdown');
+        var btn = document.getElementById('btnNotifications');
+        if (dd && dd.style.display === 'block') {
+            if (!dd.contains(e.target) && !btn.contains(e.target)) {
+                dd.style.display = 'none';
+            }
+        }
+        var pdd = document.getElementById('profileDropdown');
+        var pbtn = document.getElementById('btnProfile');
+        if (pdd && pdd.style.display === 'block') {
+            if (!pdd.contains(e.target) && !pbtn.contains(e.target)) {
+                pdd.style.display = 'none';
+            }
+        }
+    });
+</script>
 </body>
 </html>
