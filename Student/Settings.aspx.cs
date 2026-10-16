@@ -3,7 +3,7 @@ using System.Web.UI;
 
 namespace PlacementPrep
 {
-    public partial class Settings : System.Web.UI.Page
+    public partial class StudentSettings : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

@@ -9,7 +9,7 @@
 
 namespace PlacementPrep
 {
-    public partial class Settings
+    public partial class StudentSettings
     {
         /// <summary>
         /// pnlSettingsNotice control.

@@ -1,6 +1,6 @@
 <%@ Page Title="Help Center" Language="C#" MasterPageFile="~/Student.Master"
     AutoEventWireup="true" CodeBehind="Help.aspx.cs"
-    Inherits="PlacementPrep.Help" %>
+    Inherits="PlacementPrep.StudentHelp" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <title>Help Center &amp; Support | Placement Prep</title>

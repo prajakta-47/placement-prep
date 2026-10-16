@@ -9,7 +9,7 @@
 
 namespace PlacementPrep
 {
-    public partial class Help
+    public partial class StudentHelp
     {
         /// <summary>
         /// pnlTicketNotice control.
