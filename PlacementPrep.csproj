@@ -123,8 +123,11 @@
     <Content Include="Resources\css\student.css" />
     <Content Include="Student\Dashboard.aspx" />
     <Content Include="Web.config" />
+    <Content Include="Database\PlacementPrep_Schema.sql" />
+    <Content Include="Database\Placement_Prep_Database.sql" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\DbHelper.cs" />
     <Compile Include="Models\AIConfigModel.cs" />
     <Compile Include="Models\FacultyDataStore.cs" />
     <Compile Include="Admin.Master.cs">
