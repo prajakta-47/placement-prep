@@ -31,24 +31,25 @@
             </span>
         </a>
 
-        <label class="faculty-search">
+        <div class="faculty-search">
             <svg viewBox="0 0 24 24" aria-hidden="true">
                 <circle cx="11" cy="11" r="7"/>
                 <path d="m16 16 4 4"/>
             </svg>
-            <input type="search" placeholder="Search users, companies, reports..."
-                   aria-label="Search users, companies and reports" />
-        </label>
+            <input type="search" id="globalNavSearch" placeholder="Search students, companies, reports..."
+                   aria-label="Search users, companies and reports"
+                   onkeydown="if(event.key==='Enter'){event.preventDefault();window.location.href='<%= ResolveUrl("~/Faculty/Students.aspx") %>?q=' + encodeURIComponent(this.value);}" />
+        </div>
 
         <nav class="faculty-top-nav">
-            <a class="faculty-top-link active" href="<%= ResolveUrl("~/Faculty/Dashboard.aspx") %>">Dashboard</a>
-            <a class="faculty-top-link" href="<%= ResolveUrl("~/Faculty/Students.aspx") %>">Students</a>
-            <a class="faculty-top-link" href="<%= ResolveUrl("~/Faculty/Curriculum.aspx") %>">Curriculum</a>
-            <a class="faculty-top-link" href="<%= ResolveUrl("~/Faculty/Analytics.aspx") %>">Analytics</a>
+            <a class='faculty-top-link <%= IsActive("Dashboard.aspx") %>' href="<%= ResolveUrl("~/Faculty/Dashboard.aspx") %>">Dashboard</a>
+            <a class='faculty-top-link <%= IsActive("Students.aspx", "StudentProfile.aspx", "StudentManagement.aspx") %>' href="<%= ResolveUrl("~/Faculty/Students.aspx") %>">Students</a>
+            <a class='faculty-top-link <%= IsActive("Curriculum.aspx", "CurriculumManagement.aspx") %>' href="<%= ResolveUrl("~/Faculty/Curriculum.aspx") %>">Curriculum</a>
+            <a class='faculty-top-link <%= IsActive("Analytics.aspx", "PerformanceAnalytics.aspx") %>' href="<%= ResolveUrl("~/Faculty/Analytics.aspx") %>">Analytics</a>
         </nav>
 
         <div class="faculty-header-actions">
-            <button type="button" class="faculty-icon-button" aria-label="Notifications">
+            <button type="button" class="faculty-icon-button" id="btnNotifications" onclick="toggleNotifDropdown(event)" aria-label="Notifications" title="Notifications">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
                     <path d="M10 21h4"/>
@@ -56,14 +57,40 @@
                 <i></i>
             </button>
 
-            <a class="faculty-icon-button" href="<%= ResolveUrl("~/Faculty/Settings.aspx") %>" aria-label="Settings">
+            <!-- Notifications Dropdown -->
+            <div class="faculty-notifications-dropdown" id="notifDropdown" style="display:none;">
+                <div class="notif-header">
+                    <span>Notifications &amp; Alerts</span>
+                    <span style="font-size:10px; color:var(--fac-teal); cursor:pointer;" onclick="document.getElementById('notifDropdown').style.display='none';">Mark all read</span>
+                </div>
+                <div class="notif-item">
+                    <strong>Tech Mahindra Campus Mock Test</strong>
+                    <p>Mandatory batch mock test scheduled for Oct 12 at 10:00 AM.</p>
+                    <small>1 hour ago</small>
+                </div>
+                <div class="notif-item">
+                    <strong>Proctor Flag Detected</strong>
+                    <p>Window focus changed during coding lab for 24SOECE1105.</p>
+                    <small>4 hours ago</small>
+                </div>
+                <div class="notif-item">
+                    <strong>Curriculum Rubric Updated</strong>
+                    <p>Dynamic Programming problem set updated for campus readiness.</p>
+                    <small>Yesterday</small>
+                </div>
+            </div>
+
+            <a class='faculty-icon-button <%= IsActive("Settings.aspx", "ProfileSettings.aspx") %>' 
+               href="<%= ResolveUrl("~/Faculty/Settings.aspx") %>" 
+               aria-label="Settings" 
+               title="Settings">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="12" r="3"/>
-                    <path d="m19 13 2-1-2-1-.5-2 1-2-2-2-2 1-2-.5-1-2-2 2-.5 2-2 1-2-1-2 2 1 2-.5 2-2 1 2 1 .5 2-1 2 2 2 2-1 2 .5 1 2 2-2 .5-2 2-1 2 1 2-2-1-2z"/>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
                 </svg>
             </a>
 
-            <a class="faculty-profile-button" href="<%= ResolveUrl("~/Faculty/Profile.aspx") %>" aria-label="Faculty profile">
+            <a class="faculty-profile-button" href="<%= ResolveUrl("~/Faculty/Settings.aspx") %>" aria-label="Faculty profile" title="Prof. R. Sharma (Coordinator)">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                     <circle cx="12" cy="8" r="3"/>
                     <path d="M5 20a7 7 0 0 1 14 0"/>
@@ -159,5 +186,23 @@
     </div>
 
 </form>
+<script>
+    function toggleNotifDropdown(e) {
+        if (e) e.stopPropagation();
+        var dd = document.getElementById('notifDropdown');
+        if (dd) {
+            dd.style.display = (dd.style.display === 'none' || dd.style.display === '') ? 'block' : 'none';
+        }
+    }
+    document.addEventListener('click', function(e) {
+        var dd = document.getElementById('notifDropdown');
+        var btn = document.getElementById('btnNotifications');
+        if (dd && dd.style.display === 'block') {
+            if (!dd.contains(e.target) && !btn.contains(e.target)) {
+                dd.style.display = 'none';
+            }
+        }
+    });
+</script>
 </body>
 </html>

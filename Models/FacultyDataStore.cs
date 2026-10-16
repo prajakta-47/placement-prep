@@ -67,6 +67,39 @@ namespace PlacementPrep.Models
         public string Location { get; set; }
         public string Status { get; set; } // "Scheduled", "In Progress", "Completed"
         public int RegisteredStudents { get; set; }
+        public string EligibleDept { get; set; }
+        public decimal MinCgpa { get; set; }
+        public string DriveType { get; set; } // "Full Time", "Internship", "Mixed"
+    }
+
+    public class AnnouncementModel
+    {
+        public string AnnouncementId { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string Priority { get; set; } // "High", "Normal", "Urgent"
+        public string TargetCohort { get; set; }
+        public DateTime PostedDate { get; set; }
+        public string Author { get; set; }
+    }
+
+    public class CoordinatorSettingsModel
+    {
+        public string FullName { get; set; }
+        public string Designation { get; set; }
+        public string Department { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string OfficeLocation { get; set; }
+        public bool DailySummaryEmail { get; set; }
+        public bool InstantProctorSms { get; set; }
+        public bool WeeklyDigest { get; set; }
+        public bool StudentRegistrationAlert { get; set; }
+        public string DefaultInferenceModel { get; set; }
+        public int BenchmarkPassingCutoff { get; set; }
+        public bool DefaultNegativeMarking { get; set; }
+        public bool ShuffleQuestions { get; set; }
+        public bool TwoFactorAuth { get; set; }
     }
 
     public static class FacultyDataStore
@@ -76,6 +109,9 @@ namespace PlacementPrep.Models
         private static List<CompanyModel> _companies;
         private static List<SystemLogModel> _logs;
         private static List<PlacementDriveModel> _drives;
+        private static List<AnnouncementModel> _announcements;
+        private static CoordinatorSettingsModel _settings;
+        private static readonly object _lock = new object();
 
         static FacultyDataStore()
         {
@@ -87,6 +123,122 @@ namespace PlacementPrep.Models
         public static List<CompanyModel> Companies => _companies;
         public static List<SystemLogModel> Logs => _logs;
         public static List<PlacementDriveModel> Drives => _drives;
+        public static List<AnnouncementModel> Announcements => _announcements;
+
+        public static CoordinatorSettingsModel GetSettings()
+        {
+            lock (_lock)
+            {
+                if (_settings == null)
+                {
+                    _settings = new CoordinatorSettingsModel
+                    {
+                        FullName = "Prof. R. Sharma",
+                        Designation = "Placement Coordinator & Associate Professor",
+                        Department = "Computer Science & Engineering",
+                        Email = "r.sharma@campus.edu",
+                        Phone = "+91 98765 43210",
+                        OfficeLocation = "Block C, Faculty Wing, Room 304",
+                        DailySummaryEmail = true,
+                        InstantProctorSms = true,
+                        WeeklyDigest = true,
+                        StudentRegistrationAlert = false,
+                        DefaultInferenceModel = "GPT-4 Turbo",
+                        BenchmarkPassingCutoff = 65,
+                        DefaultNegativeMarking = true,
+                        ShuffleQuestions = true,
+                        TwoFactorAuth = true
+                    };
+                }
+                return _settings;
+            }
+        }
+
+        public static void SaveSettings(CoordinatorSettingsModel s)
+        {
+            lock (_lock)
+            {
+                _settings = s;
+            }
+        }
+
+        public static void AddDrive(PlacementDriveModel drive)
+        {
+            lock (_lock)
+            {
+                if (string.IsNullOrWhiteSpace(drive.DriveId))
+                {
+                    drive.DriveId = "DRV-2026-" + (_drives.Count + 1).ToString("D2");
+                }
+                _drives.Insert(0, drive);
+            }
+        }
+
+        public static bool UpdateDrive(PlacementDriveModel drive)
+        {
+            lock (_lock)
+            {
+                var existing = _drives.FirstOrDefault(d => d.DriveId.Equals(drive.DriveId, StringComparison.OrdinalIgnoreCase));
+                if (existing != null)
+                {
+                    existing.CompanyName = drive.CompanyName;
+                    existing.JobTitle = drive.JobTitle;
+                    existing.EventDate = drive.EventDate;
+                    existing.TimeWindow = drive.TimeWindow;
+                    existing.Location = drive.Location;
+                    existing.Status = drive.Status;
+                    existing.RegisteredStudents = drive.RegisteredStudents;
+                    existing.EligibleDept = drive.EligibleDept;
+                    existing.MinCgpa = drive.MinCgpa;
+                    existing.DriveType = drive.DriveType;
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public static bool DeleteDrive(string driveId)
+        {
+            lock (_lock)
+            {
+                var item = _drives.FirstOrDefault(d => d.DriveId.Equals(driveId, StringComparison.OrdinalIgnoreCase));
+                if (item != null)
+                {
+                    _drives.Remove(item);
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public static PlacementDriveModel GetDrive(string driveId)
+        {
+            lock (_lock)
+            {
+                return _drives.FirstOrDefault(d => d.DriveId.Equals(driveId, StringComparison.OrdinalIgnoreCase));
+            }
+        }
+
+        public static void AddAnnouncement(AnnouncementModel a)
+        {
+            lock (_lock)
+            {
+                if (string.IsNullOrWhiteSpace(a.AnnouncementId))
+                {
+                    a.AnnouncementId = "ANN-" + DateTime.Now.Ticks.ToString().Substring(10);
+                }
+                a.PostedDate = DateTime.Now;
+                _announcements.Insert(0, a);
+            }
+        }
+
+        public static void AddStudent(StudentModel s)
+        {
+            lock (_lock)
+            {
+                _students.Insert(0, s);
+            }
+        }
 
         private static void SeedData()
         {
@@ -342,7 +494,34 @@ namespace PlacementPrep.Models
                     TimeWindow = "09:00 AM - 05:00 PM",
                     Location = "Virtual Hackathon",
                     Status = "Scheduled",
-                    RegisteredStudents = 48
+                    RegisteredStudents = 48,
+                    EligibleDept = "CSE, IT",
+                    MinCgpa = 8.5m,
+                    DriveType = "Full Time"
+                }
+            };
+
+            _announcements = new List<AnnouncementModel>
+            {
+                new AnnouncementModel
+                {
+                    AnnouncementId = "ANN-101",
+                    Title = "Tech Mahindra Campus Mock Test Mandatory Attendance",
+                    Content = "All final-year students eligible for Tech Mahindra drive must participate in the Mock Assessment scheduled for October 12, 10:00 AM at CS Lab 4.",
+                    Priority = "High",
+                    TargetCohort = "B.Tech CSE & IT (Batch 2025)",
+                    PostedDate = DateTime.Now.AddDays(-1),
+                    Author = "Prof. R. Sharma"
+                },
+                new AnnouncementModel
+                {
+                    AnnouncementId = "ANN-102",
+                    Title = "Resume Verification Deadline Extended",
+                    Content = "Students flagged for ATS compliance issues have until Friday, 5:00 PM to update and re-submit their verified resume through the student portal.",
+                    Priority = "Normal",
+                    TargetCohort = "All Branches",
+                    PostedDate = DateTime.Now.AddDays(-3),
+                    Author = "Placement Cell"
                 }
             };
         }

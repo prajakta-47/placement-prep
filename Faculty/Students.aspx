@@ -64,12 +64,18 @@
 <div class="faculty-dashboard" style="display:flex; flex-direction:column; gap:16px;">
 
     <!-- Heading -->
-    <div class="faculty-dashboard-heading" style="margin-bottom:0;">
+    <div class="faculty-dashboard-heading" style="margin-bottom:0; flex-wrap:wrap; gap:12px;">
         <div>
             <h1>Student Cohort &amp; Placement Readiness</h1>
             <p>Monitor individual preparation metrics, mock test performance, and placement fit scores</p>
         </div>
-        <div>
+        <div style="display:flex; gap:8px; align-items:center;">
+            <asp:Button ID="btnExportCsv" runat="server" Text="⇩ Export CSV" OnClick="btnExportCsv_Click" 
+                style="height:34px; padding:0 14px; background:#ffffff; color:#334155; border:1px solid #cbd5e1; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;" />
+            <button type="button" onclick="document.getElementById('addStudentModal').style.display='grid'"
+                style="height:34px; padding:0 14px; background:var(--fac-teal); color:#ffffff; border:none; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;">
+                ＋ Add Student
+            </button>
             <a href="PlacementDrives.aspx" class="faculty-new-drive" style="margin-top:0; height:34px; padding:0 14px; display:inline-flex; align-items:center;">
                 <span>＋</span> Schedule Assessment
             </a>
@@ -111,6 +117,7 @@
                     <th>Avg Score</th>
                     <th>Readiness Index</th>
                     <th>Placement Fit</th>
+                    <th style="text-align:right;">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -118,7 +125,10 @@
                     <ItemTemplate>
                         <tr>
                             <td><strong><%# Eval("RollNo") %></strong></td>
-                            <td><%# Eval("Name") %></td>
+                            <td>
+                                <div><strong><%# Eval("Name") %></strong></div>
+                                <div style="font-size:10px; color:#64748b;"><%# Eval("Email") %></div>
+                            </td>
                             <td><%# Eval("Department") %></td>
                             <td><%# Eval("CGPA", "{0:F2}") %></td>
                             <td><%# Eval("TestsCompleted") %></td>
@@ -129,6 +139,12 @@
                                     <%# Eval("Status") %>
                                 </span>
                             </td>
+                            <td style="text-align:right;">
+                                <button type="button" style="padding:4px 10px; border-radius:4px; font-size:10px; font-weight:600; background:#f1f5f9; border:1px solid #cbd5e1; cursor:pointer;"
+                                    onclick='alert("Student Dossier:\n\nName: <%# Eval("Name") %>\nRoll No: <%# Eval("RollNo") %>\nCGPA: <%# Eval("CGPA", "{0:F2}") %>\nAvg Mock Score: <%# Eval("AvgScore", "{0:F1}") %>%\nReadiness: <%# Eval("ReadinessIndex", "{0:F0}") %>%\nStatus: <%# Eval("Status") %>");'>
+                                    View Profile
+                                </button>
+                            </td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -136,5 +152,47 @@
         </table>
     </section>
 
+</div>
+
+<!-- Add Student Modal -->
+<div id="addStudentModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(15,23,42,0.6); backdrop-filter:blur(4px); z-index:9999; place-items:center; padding:16px;">
+    <div style="background:#fff; border-radius:12px; max-width:440px; width:100%; padding:20px; box-shadow:0 10px 25px rgba(0,0,0,0.15);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid #e2e8f0; padding-bottom:10px;">
+            <h3 style="margin:0; font-size:15px; font-weight:700;">Add Student to Cohort</h3>
+            <button type="button" onclick="document.getElementById('addStudentModal').style.display='none'" style="border:none; background:none; font-size:20px; cursor:pointer;">&times;</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px; font-size:11px;">
+            <div>
+                <label style="font-weight:600; color:#334155;">Full Name *</label>
+                <asp:TextBox ID="txtNewName" runat="server" placeholder="e.g. Diya Sengupta" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box; margin-top:3px;" />
+            </div>
+            <div>
+                <label style="font-weight:600; color:#334155;">Roll Number *</label>
+                <asp:TextBox ID="txtNewRoll" runat="server" placeholder="e.g. 24SOECE1120" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box; margin-top:3px;" />
+            </div>
+            <div>
+                <label style="font-weight:600; color:#334155;">Department</label>
+                <asp:TextBox ID="txtNewDept" runat="server" Text="Computer Science & Engineering" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box; margin-top:3px;" />
+            </div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                <div>
+                    <label style="font-weight:600; color:#334155;">CGPA</label>
+                    <asp:TextBox ID="txtNewCgpa" runat="server" Text="8.5" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box; margin-top:3px;" />
+                </div>
+                <div>
+                    <label style="font-weight:600; color:#334155;">Placement Fit</label>
+                    <asp:DropDownList ID="ddlNewStatus" runat="server" style="width:100%; padding:8px; border:1px solid #cbd5e1; border-radius:6px; box-sizing:border-box; margin-top:3px;">
+                        <asp:ListItem Value="Strong Fit" Text="Strong Fit" Selected="True" />
+                        <asp:ListItem Value="On Track" Text="On Track" />
+                        <asp:ListItem Value="Needs Review" Text="Needs Review" />
+                    </asp:DropDownList>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end; gap:8px; margin-top:16px; border-top:1px solid #e2e8f0; padding-top:12px;">
+            <button type="button" onclick="document.getElementById('addStudentModal').style.display='none'" style="padding:7px 14px; background:#fff; border:1px solid #cbd5e1; border-radius:6px; font-size:11px; cursor:pointer;">Cancel</button>
+            <asp:Button ID="btnSaveStudent" runat="server" Text="Save Student" OnClick="btnSaveStudent_Click" style="padding:7px 14px; background:var(--fac-teal); color:#fff; border:none; border-radius:6px; font-size:11px; font-weight:600; cursor:pointer;" />
+        </div>
+    </div>
 </div>
 </asp:Content>

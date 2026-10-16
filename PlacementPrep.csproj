@@ -116,6 +116,9 @@
     <Content Include="Faculty\PlacementDrives.aspx" />
     <Content Include="Faculty\Settings.aspx" />
     <Content Include="Faculty\Profile.aspx" />
+    <Content Include="Faculty\Announcements.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Resources\css\admin.css" />
     <Content Include="Resources\css\common.css" />
@@ -229,6 +232,13 @@
     </Compile>
     <Compile Include="Faculty\Settings.aspx.designer.cs">
       <DependentUpon>Settings.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\Announcements.aspx.cs">
+      <DependentUpon>Announcements.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\Announcements.aspx.designer.cs">
+      <DependentUpon>Announcements.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
