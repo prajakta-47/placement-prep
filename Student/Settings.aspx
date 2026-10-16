@@ -1,6 +1,6 @@
 <%@ Page Title="Account Settings" Language="C#" MasterPageFile="~/Student.Master"
     AutoEventWireup="true" CodeBehind="Settings.aspx.cs"
-    Inherits="PlacementPrep.Settings" %>
+    Inherits="PlacementPrep.StudentSettings" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="head" runat="server">
     <title>Account Settings | Placement Prep</title>
