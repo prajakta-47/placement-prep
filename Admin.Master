@@ -150,7 +150,7 @@
                     </svg>
                     <span>Settings</span>
                 </a>
-                <a class="admin-bottom-link logout" href="<%= ResolveUrl("~/Login.aspx") %>">
+                <a class="admin-bottom-link logout" href="<%= ResolveUrl("~/Login.aspx?logout=true") %>">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M10 4H5v16h5m4-4 4-4-4-4m4 4H9"/>
                     </svg>
