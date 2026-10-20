@@ -140,10 +140,10 @@
                                 </span>
                             </td>
                             <td style="text-align:right;">
-                                <button type="button" style="padding:4px 10px; border-radius:4px; font-size:10px; font-weight:600; background:#f1f5f9; border:1px solid #cbd5e1; cursor:pointer;"
-                                    onclick='alert("Student Dossier:\n\nName: <%# Eval("Name") %>\nRoll No: <%# Eval("RollNo") %>\nCGPA: <%# Eval("CGPA", "{0:F2}") %>\nAvg Mock Score: <%# Eval("AvgScore", "{0:F1}") %>%\nReadiness: <%# Eval("ReadinessIndex", "{0:F0}") %>%\nStatus: <%# Eval("Status") %>");'>
-                                    View Profile
-                                </button>
+                                <a href='<%# ResolveUrl("~/Faculty/StudentProfile.aspx?roll=" + Eval("RollNo")) %>'
+                                   style="display:inline-block; padding:4px 10px; border-radius:4px; font-size:10px; font-weight:600; background:var(--fac-teal); color:#ffffff; text-decoration:none;">
+                                    View Profile &rarr;
+                                </a>
                             </td>
                         </tr>
                     </ItemTemplate>

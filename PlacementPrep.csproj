@@ -134,6 +134,7 @@
     <Content Include="Faculty\AIConfig.aspx" />
     <Content Include="Faculty\AIPromptConfiguration.aspx" />
     <Content Include="Faculty\Students.aspx" />
+    <Content Include="Faculty\StudentProfile.aspx" />
     <Content Include="Faculty\Curriculum.aspx" />
     <Content Include="Faculty\Analytics.aspx" />
     <Content Include="Faculty\Companies.aspx" />
@@ -178,7 +179,7 @@
     <Content Include="Database\Placement_Prep_Database.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\DbHelper.cs" />
+
     <Compile Include="Models\AIConfigModel.cs" />
     <Compile Include="Models\FacultyDataStore.cs" />
     <Compile Include="Admin.Master.cs">
@@ -415,6 +416,13 @@
     </Compile>
     <Compile Include="Faculty\Students.aspx.designer.cs">
       <DependentUpon>Students.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Faculty\StudentProfile.aspx.cs">
+      <DependentUpon>StudentProfile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Faculty\StudentProfile.aspx.designer.cs">
+      <DependentUpon>StudentProfile.aspx</DependentUpon>
     </Compile>
     <Compile Include="Faculty\Curriculum.aspx.cs">
       <DependentUpon>Curriculum.aspx</DependentUpon>
