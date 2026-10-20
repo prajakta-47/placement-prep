@@ -376,11 +376,18 @@
                     </div>
 
                     <div class="drive-title-area">
-                        <h3><%# Eval("CompanyName") %></h3>
-                        <p><%# Eval("JobTitle") %></p>
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+                            <h3 style="margin:0;"><%# Eval("CompanyName") %></h3>
+                            <span class="faculty-tag" style="background:#eef2ff; color:#4338ca; font-size:10px;"><%# Eval("Industry") ?? "IT Services" %></span>
+                        </div>
+                        <p style="margin-top:4px;"><%# Eval("JobTitle") %></p>
                     </div>
 
                     <div class="drive-details-list">
+                        <div class="drive-detail-row">
+                            <span class="drive-detail-label">💰 CTC Package:</span>
+                            <span class="drive-detail-val" style="color:var(--fac-teal); font-weight:700;"><%# Eval("PackageLPA", "{0:F1}") %> LPA</span>
+                        </div>
                         <div class="drive-detail-row">
                             <span class="drive-detail-label">📅 Date:</span>
                             <span class="drive-detail-val"><%# Eval("EventDate") %></span>
@@ -408,8 +415,11 @@
                             <span>👥 <%# Eval("RegisteredStudents") %> Candidates</span>
                         </div>
                         <div class="drive-actions">
+                            <a href='Companies.aspx?q=<%# Server.UrlEncode((string)Eval("CompanyName")) %>' class="btn-action" style="text-decoration:none; display:inline-flex; align-items:center;" title="View in Corporate Partner Directory">
+                                🏢 Partner
+                            </a>
                             <button type="button" class="btn-action btn-edit" 
-                                onclick='openEditModal("<%# Eval("DriveId") %>", "<%# Eval("CompanyName") %>", "<%# Eval("JobTitle") %>", "<%# Eval("EventDate") %>", "<%# Eval("TimeWindow") %>", "<%# Eval("Location") %>", "<%# Eval("Status") %>", "<%# Eval("RegisteredStudents") %>", "<%# Eval("EligibleDept") %>", "<%# Eval("MinCgpa") %>")'>
+                                onclick='openEditModal("<%# Eval("DriveId") %>", "<%# Eval("CompanyName") %>", "<%# Eval("JobTitle") %>", "<%# Eval("EventDate") %>", "<%# Eval("TimeWindow") %>", "<%# Eval("Location") %>", "<%# Eval("Status") %>", "<%# Eval("RegisteredStudents") %>", "<%# Eval("EligibleDept") %>", "<%# Eval("MinCgpa") %>", "<%# Eval("PackageLPA") %>", "<%# Eval("Industry") %>")'>
                                 ✎ Edit
                             </button>
                             <asp:Button ID="btnDelete" runat="server" Text="✕ Delete" 
@@ -444,6 +454,17 @@
             <div style="display:flex; flex-direction:column; gap:4px;">
                 <label style="font-size:11px; font-weight:600; color:#334155;">Job Role / Title *</label>
                 <asp:TextBox ID="txtModalRole" runat="server" CssClass="toolbar-input" placeholder="e.g. SDE-1, Graduate Engineer Trainee..." />
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                    <label style="font-size:11px; font-weight:600; color:#334155;">Package Offered (LPA) *</label>
+                    <asp:TextBox ID="txtModalPackage" runat="server" CssClass="toolbar-input" placeholder="e.g. 7.5" Text="6.5" />
+                </div>
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                    <label style="font-size:11px; font-weight:600; color:#334155;">Industry / Sector</label>
+                    <asp:TextBox ID="txtModalIndustry" runat="server" CssClass="toolbar-input" placeholder="e.g. IT Services, Cloud, FinTech" Text="IT Services" />
+                </div>
             </div>
 
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
@@ -501,6 +522,8 @@
         document.getElementById('modalTitle').innerText = 'Create New Placement Drive';
         document.getElementById('<%= txtModalCompany.ClientID %>').value = '';
         document.getElementById('<%= txtModalRole.ClientID %>').value = '';
+        document.getElementById('<%= txtModalPackage.ClientID %>').value = '6.5';
+        document.getElementById('<%= txtModalIndustry.ClientID %>').value = 'IT Services';
         document.getElementById('<%= txtModalDate.ClientID %>').value = '';
         document.getElementById('<%= txtModalTime.ClientID %>').value = '10:00 AM - 01:00 PM';
         document.getElementById('<%= txtModalLocation.ClientID %>').value = 'Campus Lab 3';
@@ -511,11 +534,13 @@
         document.getElementById('driveModal').classList.add('show');
     }
 
-    function openEditModal(id, company, role, date, time, location, status, students, dept, cgpa) {
+    function openEditModal(id, company, role, date, time, location, status, students, dept, cgpa, packageLpa, industry) {
         document.getElementById('<%= hfDriveId.ClientID %>').value = id;
         document.getElementById('modalTitle').innerText = 'Edit Placement Drive (' + id + ')';
         document.getElementById('<%= txtModalCompany.ClientID %>').value = company || '';
         document.getElementById('<%= txtModalRole.ClientID %>').value = role || '';
+        document.getElementById('<%= txtModalPackage.ClientID %>').value = packageLpa || '6.5';
+        document.getElementById('<%= txtModalIndustry.ClientID %>').value = industry || 'IT Services';
         document.getElementById('<%= txtModalDate.ClientID %>').value = date || '';
         document.getElementById('<%= txtModalTime.ClientID %>').value = time || '';
         document.getElementById('<%= txtModalLocation.ClientID %>').value = location || '';

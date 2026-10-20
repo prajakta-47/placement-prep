@@ -7,13 +7,6 @@ namespace PlacementPrep
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                if (pnlTicketNotice != null)
-                {
-                    pnlTicketNotice.Visible = false;
-                }
-            }
         }
     }
 }

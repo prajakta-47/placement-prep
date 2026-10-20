@@ -13,33 +13,9 @@ namespace PlacementPrep
         {
             if (!IsPostBack)
             {
-                // Admin Settings Initialization
                 if (txtUniversityName != null)
                 {
                     LoadSettings();
-                }
-
-                // Student Settings Initialization
-                if (pnlSettingsNotice != null)
-                {
-                    pnlSettingsNotice.Visible = false;
-                    if (Session["StudentFullName"] != null && txtFullName != null)
-                    {
-                        txtFullName.Text = Session["StudentFullName"].ToString();
-                    }
-                    if (Session["StudentEmail"] != null && txtEmail != null)
-                    {
-                        txtEmail.Text = Session["StudentEmail"].ToString();
-                    }
-                    if (Session["StudentAvatarUrl"] != null && imgAvatar != null)
-                    {
-                        imgAvatar.ImageUrl = Session["StudentAvatarUrl"].ToString();
-                        imgAvatar.Visible = true;
-                        if (litAvatarInitials != null)
-                        {
-                            litAvatarInitials.Visible = false;
-                        }
-                    }
                 }
             }
         }

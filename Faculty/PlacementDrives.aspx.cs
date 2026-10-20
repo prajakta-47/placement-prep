@@ -81,6 +81,13 @@ namespace PlacementPrep.Faculty
             decimal cgpa = 7.0m;
             decimal.TryParse(txtModalCgpa.Text.Trim(), out cgpa);
 
+            decimal package = 6.5m;
+            decimal.TryParse(txtModalPackage.Text.Trim(), out package);
+            if (package <= 0) package = 6.5m;
+
+            string industry = txtModalIndustry.Text.Trim();
+            if (string.IsNullOrEmpty(industry)) industry = "IT Services";
+
             if (string.IsNullOrEmpty(company) || string.IsNullOrEmpty(role))
             {
                 ShowAlert("Please provide both Company Name and Job Role.");
@@ -105,10 +112,12 @@ namespace PlacementPrep.Faculty
                     RegisteredStudents = students > 0 ? students : 45,
                     EligibleDept = string.IsNullOrEmpty(dept) ? "CSE, IT" : dept,
                     MinCgpa = cgpa > 0 ? cgpa : 7.0m,
+                    PackageLPA = package,
+                    Industry = industry,
                     DriveType = "Full Time"
                 };
                 FacultyDataStore.AddDrive(newDrive);
-                ShowAlert("Successfully scheduled new placement drive for " + company + " (" + newDrive.DriveId + ").");
+                ShowAlert("Successfully scheduled new placement drive for " + company + " (" + newDrive.DriveId + ") with " + package.ToString("F1") + " LPA.");
             }
             else
             {
@@ -125,6 +134,8 @@ namespace PlacementPrep.Faculty
                     existing.RegisteredStudents = students;
                     existing.EligibleDept = dept;
                     existing.MinCgpa = cgpa;
+                    existing.PackageLPA = package;
+                    existing.Industry = industry;
                     FacultyDataStore.UpdateDrive(existing);
                     ShowAlert("Updated placement drive details for " + company + " (" + driveId + ").");
                 }

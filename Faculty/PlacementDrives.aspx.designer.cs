@@ -15,6 +15,8 @@ namespace PlacementPrep.Faculty
         protected global::System.Web.UI.WebControls.HiddenField hfDriveId;
         protected global::System.Web.UI.WebControls.TextBox txtModalCompany;
         protected global::System.Web.UI.WebControls.TextBox txtModalRole;
+        protected global::System.Web.UI.WebControls.TextBox txtModalPackage;
+        protected global::System.Web.UI.WebControls.TextBox txtModalIndustry;
         protected global::System.Web.UI.WebControls.TextBox txtModalDate;
         protected global::System.Web.UI.WebControls.TextBox txtModalTime;
         protected global::System.Web.UI.WebControls.TextBox txtModalLocation;

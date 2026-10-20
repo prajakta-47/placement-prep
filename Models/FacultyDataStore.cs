@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace PlacementPrep.Models
@@ -70,6 +73,8 @@ namespace PlacementPrep.Models
         public string EligibleDept { get; set; }
         public decimal MinCgpa { get; set; }
         public string DriveType { get; set; } // "Full Time", "Internship", "Mixed"
+        public decimal PackageLPA { get; set; }
+        public string Industry { get; set; }
     }
 
     public class AnnouncementModel
@@ -171,7 +176,24 @@ namespace PlacementPrep.Models
                     drive.DriveId = "DRV-2026-" + (_drives.Count + 1).ToString("D2");
                 }
                 _drives.Insert(0, drive);
+
+                // Real-time synchronization: update/insert Corporate Partner Company
+                SyncDriveToCompany(drive);
+
+                // Audit log
+                _logs.Insert(0, new SystemLogModel
+                {
+                    EventId = "EVT-" + DateTime.Now.Ticks.ToString().Substring(12),
+                    Timestamp = DateTime.Now,
+                    Actor = "Prof. R. Sharma (Coordinator)",
+                    Module = "Placement Drives",
+                    EventName = "Scheduled Placement Drive: " + drive.CompanyName,
+                    Severity = "Info",
+                    ActionSynopsis = "Scheduled drive " + drive.DriveId + " for " + drive.CompanyName + " (" + drive.JobTitle + ")."
+                });
             }
+
+            TrySyncDriveToDatabase(drive, isNew: true);
         }
 
         public static bool UpdateDrive(PlacementDriveModel drive)
@@ -191,6 +213,12 @@ namespace PlacementPrep.Models
                     existing.EligibleDept = drive.EligibleDept;
                     existing.MinCgpa = drive.MinCgpa;
                     existing.DriveType = drive.DriveType;
+                    if (drive.PackageLPA > 0) existing.PackageLPA = drive.PackageLPA;
+                    if (!string.IsNullOrWhiteSpace(drive.Industry)) existing.Industry = drive.Industry;
+
+                    // Real-time synchronization: reflect in Corporate Partner Directory
+                    SyncDriveToCompany(existing);
+                    TrySyncDriveToDatabase(existing, isNew: false);
                     return true;
                 }
                 return false;
@@ -204,7 +232,28 @@ namespace PlacementPrep.Models
                 var item = _drives.FirstOrDefault(d => d.DriveId.Equals(driveId, StringComparison.OrdinalIgnoreCase));
                 if (item != null)
                 {
+                    string compName = item.CompanyName;
                     _drives.Remove(item);
+
+                    if (!string.IsNullOrWhiteSpace(compName))
+                    {
+                        var remaining = _drives.Where(d => string.Equals(d.CompanyName, compName, StringComparison.OrdinalIgnoreCase)).ToList();
+                        var comp = _companies.FirstOrDefault(c => string.Equals(c.CompanyName, compName, StringComparison.OrdinalIgnoreCase));
+                        if (comp != null)
+                        {
+                            if (remaining.Count == 0)
+                            {
+                                _companies.Remove(comp);
+                                TryDeleteCompanyFromDatabase(compName);
+                            }
+                            else
+                            {
+                                SyncDriveToCompany(remaining[0]);
+                            }
+                        }
+                    }
+
+                    TryDeleteDriveFromDatabase(driveId);
                     return true;
                 }
                 return false;
@@ -218,6 +267,301 @@ namespace PlacementPrep.Models
                 return _drives.FirstOrDefault(d => d.DriveId.Equals(driveId, StringComparison.OrdinalIgnoreCase));
             }
         }
+
+        public static void AddCompany(CompanyModel company)
+        {
+            lock (_lock)
+            {
+                if (company == null || string.IsNullOrWhiteSpace(company.CompanyName)) return;
+
+                string compName = company.CompanyName.Trim();
+                var existing = _companies.FirstOrDefault(c => string.Equals(c.CompanyName, compName, StringComparison.OrdinalIgnoreCase));
+                if (existing != null)
+                {
+                    existing.Industry = company.Industry;
+                    existing.Role = company.Role;
+                    existing.MinCgpa = company.MinCgpa;
+                    existing.PackageLPA = company.PackageLPA;
+                    existing.DriveDate = company.DriveDate;
+                    existing.Status = company.Status;
+                    existing.EligibleCount = company.EligibleCount;
+                }
+                else
+                {
+                    _companies.Insert(0, company);
+                }
+
+                // Real-time synchronization: update/create matching Placement Drive
+                var matchingDrive = _drives.FirstOrDefault(d => string.Equals(d.CompanyName, compName, StringComparison.OrdinalIgnoreCase));
+                if (matchingDrive != null)
+                {
+                    matchingDrive.JobTitle = company.Role;
+                    matchingDrive.EventDate = company.DriveDate;
+                    matchingDrive.Status = MapCompanyStatusToDriveStatus(company.Status);
+                    matchingDrive.RegisteredStudents = company.EligibleCount;
+                    matchingDrive.MinCgpa = company.MinCgpa;
+                    matchingDrive.PackageLPA = company.PackageLPA;
+                    matchingDrive.Industry = company.Industry;
+                    TrySyncDriveToDatabase(matchingDrive, isNew: false);
+                }
+                else
+                {
+                    var newDrive = new PlacementDriveModel
+                    {
+                        DriveId = "DRV-2026-" + (_drives.Count + 1).ToString("D2"),
+                        CompanyName = compName,
+                        JobTitle = company.Role,
+                        EventDate = company.DriveDate,
+                        TimeWindow = "10:00 AM - 01:00 PM",
+                        Location = "Campus Lab 3 & 4",
+                        Status = MapCompanyStatusToDriveStatus(company.Status),
+                        RegisteredStudents = company.EligibleCount > 0 ? company.EligibleCount : 50,
+                        EligibleDept = "CSE, IT, ECE",
+                        MinCgpa = company.MinCgpa > 0 ? company.MinCgpa : 7.0m,
+                        PackageLPA = company.PackageLPA,
+                        Industry = company.Industry,
+                        DriveType = "Full Time"
+                    };
+                    _drives.Insert(0, newDrive);
+                    TrySyncDriveToDatabase(newDrive, isNew: true);
+                }
+
+                TrySyncCompanyToDatabase(company);
+            }
+        }
+
+        public static bool DeleteCompany(string companyName)
+        {
+            lock (_lock)
+            {
+                if (string.IsNullOrWhiteSpace(companyName)) return false;
+
+                var comp = _companies.FirstOrDefault(c => string.Equals(c.CompanyName, companyName, StringComparison.OrdinalIgnoreCase));
+                if (comp != null)
+                {
+                    _companies.Remove(comp);
+                    var matchedDrives = _drives.Where(d => string.Equals(d.CompanyName, companyName, StringComparison.OrdinalIgnoreCase)).ToList();
+                    foreach (var d in matchedDrives)
+                    {
+                        _drives.Remove(d);
+                        TryDeleteDriveFromDatabase(d.DriveId);
+                    }
+                    TryDeleteCompanyFromDatabase(companyName);
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        private static void SyncDriveToCompany(PlacementDriveModel drive)
+        {
+            if (drive == null || string.IsNullOrWhiteSpace(drive.CompanyName)) return;
+
+            string compName = drive.CompanyName.Trim();
+            var existing = _companies.FirstOrDefault(c => string.Equals(c.CompanyName, compName, StringComparison.OrdinalIgnoreCase));
+            string companyStatus = MapDriveStatusToCompanyStatus(drive.Status);
+
+            if (existing != null)
+            {
+                if (!string.IsNullOrWhiteSpace(drive.JobTitle)) existing.Role = drive.JobTitle;
+                if (!string.IsNullOrWhiteSpace(drive.EventDate)) existing.DriveDate = drive.EventDate;
+                if (drive.MinCgpa > 0) existing.MinCgpa = drive.MinCgpa;
+                if (drive.PackageLPA > 0) existing.PackageLPA = drive.PackageLPA;
+                if (!string.IsNullOrWhiteSpace(drive.Industry)) existing.Industry = drive.Industry;
+                existing.Status = companyStatus;
+                if (drive.RegisteredStudents > 0) existing.EligibleCount = drive.RegisteredStudents;
+            }
+            else
+            {
+                var newComp = new CompanyModel
+                {
+                    CompanyName = compName,
+                    Industry = !string.IsNullOrWhiteSpace(drive.Industry) ? drive.Industry : "IT & Software Services",
+                    Role = !string.IsNullOrWhiteSpace(drive.JobTitle) ? drive.JobTitle : "Software Engineer",
+                    MinCgpa = drive.MinCgpa > 0 ? drive.MinCgpa : 7.0m,
+                    PackageLPA = drive.PackageLPA > 0 ? drive.PackageLPA : 6.5m,
+                    DriveDate = !string.IsNullOrWhiteSpace(drive.EventDate) ? drive.EventDate : DateTime.Now.AddDays(14).ToString("MMM dd, yyyy"),
+                    Status = companyStatus,
+                    EligibleCount = drive.RegisteredStudents > 0 ? drive.RegisteredStudents : 48
+                };
+                _companies.Insert(0, newComp);
+                TrySyncCompanyToDatabase(newComp);
+            }
+        }
+
+        public static string MapDriveStatusToCompanyStatus(string driveStatus)
+        {
+            if (string.IsNullOrWhiteSpace(driveStatus)) return "Upcoming";
+            string s = driveStatus.Trim().ToLowerInvariant();
+            if (s.Contains("progress") || s == "active" || s == "open") return "Active";
+            if (s.Contains("complete") || s == "closed") return "Completed";
+            return "Upcoming";
+        }
+
+        public static string MapCompanyStatusToDriveStatus(string compStatus)
+        {
+            if (string.IsNullOrWhiteSpace(compStatus)) return "Scheduled";
+            string s = compStatus.Trim().ToLowerInvariant();
+            if (s.Contains("active") || s.Contains("hiring")) return "In Progress";
+            if (s.Contains("complete") || s.Contains("closed")) return "Completed";
+            return "Scheduled";
+        }
+
+        #region Database Synchronization Helpers
+        private static string GetDbConnectionString()
+        {
+            var cs = ConfigurationManager.ConnectionStrings["PlacementPrepDB"] ??
+                     ConfigurationManager.ConnectionStrings["PlacementPrepDb"];
+            return cs != null ? cs.ConnectionString : null;
+        }
+
+        private static void TrySyncDriveToDatabase(PlacementDriveModel drive, bool isNew)
+        {
+            try
+            {
+                string connStr = GetDbConnectionString();
+                if (string.IsNullOrWhiteSpace(connStr)) return;
+
+                using (var conn = new SqlConnection(connStr))
+                {
+                    conn.Open();
+                    string sql = @"
+IF EXISTS (SELECT 1 FROM dbo.PlacementDrives WHERE DriveId = @DriveId)
+BEGIN
+    UPDATE dbo.PlacementDrives
+    SET CompanyName = @CompanyName,
+        JobTitle = @JobTitle,
+        EventDate = @EventDate,
+        TimeWindow = @TimeWindow,
+        Location = @Location,
+        Status = @Status,
+        RegisteredStudents = @RegisteredStudents,
+        MinCtcOffered = @PackageLPA,
+        MaxCtcOffered = @PackageLPA,
+        EligibilityMinCgpa = @MinCgpa
+    WHERE DriveId = @DriveId;
+END
+ELSE
+BEGIN
+    INSERT INTO dbo.PlacementDrives (DriveId, CompanyName, JobTitle, EventDate, TimeWindow, Location, Status, RegisteredStudents, MinCtcOffered, MaxCtcOffered, EligibilityMinCgpa)
+    VALUES (@DriveId, @CompanyName, @JobTitle, @EventDate, @TimeWindow, @Location, @Status, @RegisteredStudents, @PackageLPA, @PackageLPA, @MinCgpa);
+END";
+                    using (var cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@DriveId", (object)drive.DriveId ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@CompanyName", (object)drive.CompanyName ?? "Company");
+                        cmd.Parameters.AddWithValue("@JobTitle", (object)drive.JobTitle ?? "Software Engineer");
+                        cmd.Parameters.AddWithValue("@EventDate", (object)drive.EventDate ?? DateTime.Now.ToString("MMM dd, yyyy"));
+                        cmd.Parameters.AddWithValue("@TimeWindow", (object)drive.TimeWindow ?? "10:00 AM - 01:00 PM");
+                        cmd.Parameters.AddWithValue("@Location", (object)drive.Location ?? "Campus Lab");
+                        cmd.Parameters.AddWithValue("@Status", (object)drive.Status ?? "Scheduled");
+                        cmd.Parameters.AddWithValue("@RegisteredStudents", drive.RegisteredStudents);
+                        cmd.Parameters.AddWithValue("@PackageLPA", drive.PackageLPA > 0 ? drive.PackageLPA : 6.0m);
+                        cmd.Parameters.AddWithValue("@MinCgpa", drive.MinCgpa > 0 ? drive.MinCgpa : 6.5m);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch
+            {
+                // Graceful fallback to in-memory store
+            }
+        }
+
+        private static void TrySyncCompanyToDatabase(CompanyModel company)
+        {
+            try
+            {
+                string connStr = GetDbConnectionString();
+                if (string.IsNullOrWhiteSpace(connStr)) return;
+
+                using (var conn = new SqlConnection(connStr))
+                {
+                    conn.Open();
+                    string sql = @"
+IF EXISTS (SELECT 1 FROM dbo.Companies WHERE CompanyName = @CompanyName)
+BEGIN
+    UPDATE dbo.Companies
+    SET Industry = @Industry,
+        Role = @Role,
+        MinCgpa = @MinCgpa,
+        PackageLPA = @PackageLPA,
+        DriveDate = @DriveDate,
+        Status = @Status,
+        EligibleCount = @EligibleCount
+    WHERE CompanyName = @CompanyName;
+END
+ELSE
+BEGIN
+    INSERT INTO dbo.Companies (CompanyName, Industry, Role, TierClassification, MinCgpa, PackageLPA, DriveDate, Status, EligibleCount)
+    VALUES (@CompanyName, @Industry, @Role, 'Tier 2', @MinCgpa, @PackageLPA, @DriveDate, @Status, @EligibleCount);
+END";
+                    using (var cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CompanyName", (object)company.CompanyName ?? "Company");
+                        cmd.Parameters.AddWithValue("@Industry", (object)company.Industry ?? "IT Services");
+                        cmd.Parameters.AddWithValue("@Role", (object)company.Role ?? "Software Engineer");
+                        cmd.Parameters.AddWithValue("@MinCgpa", company.MinCgpa > 0 ? company.MinCgpa : 7.0m);
+                        cmd.Parameters.AddWithValue("@PackageLPA", company.PackageLPA > 0 ? company.PackageLPA : 6.5m);
+                        cmd.Parameters.AddWithValue("@DriveDate", (object)company.DriveDate ?? DateTime.Now.ToString("MMM dd, yyyy"));
+                        cmd.Parameters.AddWithValue("@Status", (object)company.Status ?? "Upcoming");
+                        cmd.Parameters.AddWithValue("@EligibleCount", company.EligibleCount > 0 ? company.EligibleCount : 45);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch
+            {
+                // Graceful fallback to in-memory store
+            }
+        }
+
+        private static void TryDeleteDriveFromDatabase(string driveId)
+        {
+            try
+            {
+                string connStr = GetDbConnectionString();
+                if (string.IsNullOrWhiteSpace(connStr)) return;
+
+                using (var conn = new SqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (var cmd = new SqlCommand("DELETE FROM dbo.PlacementDrives WHERE DriveId = @DriveId", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@DriveId", driveId);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch
+            {
+                // Graceful fallback
+            }
+        }
+
+        private static void TryDeleteCompanyFromDatabase(string companyName)
+        {
+            try
+            {
+                string connStr = GetDbConnectionString();
+                if (string.IsNullOrWhiteSpace(connStr)) return;
+
+                using (var conn = new SqlConnection(connStr))
+                {
+                    conn.Open();
+                    using (var cmd = new SqlCommand("DELETE FROM dbo.Companies WHERE CompanyName = @CompanyName", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@CompanyName", companyName);
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch
+            {
+                // Graceful fallback
+            }
+        }
+        #endregion
 
         public static void AddAnnouncement(AnnouncementModel a)
         {
@@ -472,7 +816,12 @@ namespace PlacementPrep.Models
                     TimeWindow = "10:00 AM - 01:00 PM",
                     Location = "Lab 4, CS Block",
                     Status = "In Progress",
-                    RegisteredStudents = 164
+                    RegisteredStudents = 164,
+                    EligibleDept = "CSE, IT, ECE",
+                    MinCgpa = 7.0m,
+                    PackageLPA = 4.5m,
+                    Industry = "IT Services",
+                    DriveType = "Full Time"
                 },
                 new PlacementDriveModel
                 {
@@ -483,7 +832,12 @@ namespace PlacementPrep.Models
                     TimeWindow = "11:30 AM - 01:30 PM",
                     Location = "Auditorium / Online",
                     Status = "Scheduled",
-                    RegisteredStudents = 142
+                    RegisteredStudents = 142,
+                    EligibleDept = "CSE, IT",
+                    MinCgpa = 7.5m,
+                    PackageLPA = 6.5m,
+                    Industry = "Consulting & Tech",
+                    DriveType = "Full Time"
                 },
                 new PlacementDriveModel
                 {
@@ -497,6 +851,24 @@ namespace PlacementPrep.Models
                     RegisteredStudents = 48,
                     EligibleDept = "CSE, IT",
                     MinCgpa = 8.5m,
+                    PackageLPA = 28.0m,
+                    Industry = "Product & Cloud",
+                    DriveType = "Full Time"
+                },
+                new PlacementDriveModel
+                {
+                    DriveId = "DRV-2026-04",
+                    CompanyName = "Tata Consultancy Services (TCS)",
+                    JobTitle = "TCS Digital / Ninja",
+                    EventDate = "Nov 15, 2026",
+                    TimeWindow = "09:30 AM - 04:30 PM",
+                    Location = "Campus Placement Hall",
+                    Status = "Scheduled",
+                    RegisteredStudents = 188,
+                    EligibleDept = "All Engineering",
+                    MinCgpa = 6.5m,
+                    PackageLPA = 7.2m,
+                    Industry = "IT Services",
                     DriveType = "Full Time"
                 }
             };
