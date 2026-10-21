@@ -510,7 +510,7 @@
         color: #145c55;
     }
 
-/* Help Center and Logout stay at the bottom */
+/* Settings, Help Center and Logout stay at the bottom */
 
 .faculty-sidebar-bottom {
     margin-top: auto;
@@ -520,16 +520,18 @@
 }
 
 .faculty-bottom-link {
-    height: 27px;
-    min-height: 27px;
+    height: 28px;
+    min-height: 28px;
     width: 100%;
     display: flex;
     align-items: center;
     gap: 8px;
     padding: 0 10px;
+    border-radius: 5px;
     color: #52605e;
     font-size: 10px;
     font-weight: 500;
+    transition: background 0.15s, color 0.15s;
 }
 
     .faculty-bottom-link svg {
@@ -544,8 +546,24 @@
         stroke-linejoin: round;
     }
 
+    .faculty-bottom-link:hover {
+        background: #f1f8f7;
+        color: var(--fac-teal);
+    }
+
+    .faculty-bottom-link.active {
+        background: var(--fac-mint);
+        color: #145c55;
+        font-weight: 600;
+    }
+
     .faculty-bottom-link.logout {
         color: #d93434;
+    }
+
+    .faculty-bottom-link.logout:hover {
+        background: #fef2f2;
+        color: #b91c1c;
     }
 
 /* =========================================
