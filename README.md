@@ -61,7 +61,7 @@ Designed to provide centralized management and oversight of the platform.
 
 | Component | Technology |
 |---|---|
-| Frontend | HTML, CSS, JavaScript |
+| Frontend | HTML, CSS,|
 | Backend | C# |
 | Web Framework | ASP.NET Web Forms |
 | Runtime | .NET Framework 4.7.2 |
